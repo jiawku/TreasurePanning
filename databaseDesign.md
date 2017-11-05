@@ -19,6 +19,7 @@ item
   addTimeStamp
   Image
   endBidTime
+  status
   isDeleted
 }
 
