@@ -32,4 +32,11 @@ bid
   isDeleted
 }
 
-purchase
+purchaselHistory
+{
+  buyerUserName
+  salerUserName
+  itemID
+  status(open,canceled,shipped,ended)
+  purchaseTimeStamp
+}
