@@ -7,12 +7,11 @@ product category
 search item
 auction history
 selling item(upload picture)
-shopping cart | wishlist
+wishlist
 update wishlist
 
 admin user:
 list item
-add new item
+add new item for any user (change ownership of item)
 delete item
 update item
-

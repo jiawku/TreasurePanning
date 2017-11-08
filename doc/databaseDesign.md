@@ -14,6 +14,7 @@ users
 item
 {
   itemID
+  ownerID
   itemDescription
   startPrice
   addTimeStamp
@@ -32,7 +33,7 @@ bid
   isDeleted
 }
 
-purchaselHistory
+purchaseHistory
 {
   buyerUserName
   salerUserName
