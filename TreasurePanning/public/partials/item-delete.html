@@ -1,0 +1,11 @@
+<h1>Delete Video</h1>
+<p>
+    Are you sure you want to delete this video?
+</p>
+<img src="/images/{{video.picture}}.jpg" href="/#/video/{{video._id}}" width="300px">
+<ul>
+    <li>Title: {{video.title}}</li>
+    <li>Description: {{video.description}}</li>
+</ul>
+<input type="button" value="Yes, Delete" class="btn btn-danger" ng-click="delete()" />
+<a class="btn btn-default" href="/#/">No, Go Back</a>

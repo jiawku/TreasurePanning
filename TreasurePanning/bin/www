@@ -5,7 +5,7 @@
  */
 
 var app = require('../app');
-var debug = require('debug')('treasurepanning:server');
+var debug = require('debug')('TreasurePanning:server');
 var http = require('http');
 
 /**
