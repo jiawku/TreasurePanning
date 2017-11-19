@@ -14,7 +14,7 @@ var router=express.Router();
     });
 
     router.post('/register', function(req, res) {
-      Account.register(new Account({ username : req.body.username , email : req.body.email}), req.body.password, function(err, account) {
+      Account.register(new Account({ username : req.body.username , firstname: req.body.firstname,lastname:req.body.lastname,phone: Math.round(req.body.phone),address:req.body.address,emailaddress: req.body.emailaddress,isDeleted:'False',isAdmin:'False'}), req.body.password, function(err, account) {
           if (err) {
               return res.render('register', { account : account });
           }
