@@ -1,13 +1,23 @@
 <h1>Add a item</h1>
 <img src="/images/{{item.picture}}.jpg" href="/#/item/{{item._id}}" width="300px">
-<form>
+<form class="from" name="form" novalidate ng-submit="submit()">
     <div class="form-group">
-        <label>Title</label>
-        <input class="form-control" ng-model="item.title"></input>
+        <label>name</label>
+        <input class="form-control" ng-model="item.name" placeholder="Item Name" required>
     </div>
     <div class="form-group">
         <label>Description</label>
         <textarea class="form-group" ng-model="item.description"></textarea>
     </div>
-    <input type="button" class="btn btn-primary" value="Save" ng-click="save()"></input>
+    <div class="form-group">
+      <input type="file" files-model="item.image" >
+    </div>
+    <div class="form-group clearfix">
+      <input class="btn btn-successs pull-right" type="submit" ng-disabled="$form.invalid" value="Save">
+    </div>
 </form>
+
+<!-- <form action="/api/image/" method="POST" enctype="multipart/form-data">
+   <input type="file" name="myimage" ></input>
+   <input type="submit" name="submit" value="submit"></input>
+</form> -->
