@@ -38,8 +38,8 @@ router.get('/', function(req, res) {
     });
 });
 
-router.post('/',function(req, res){
-// router.post('/',upload.single('myimage'),function(req, res){
+// router.post('/',function(req, res){
+ router.post('/',upload.single('myimage'),function(req, res){
         var newItem = new itemModel();
         newItem.name = req.body.name;
         newItem.description = req.body.description;

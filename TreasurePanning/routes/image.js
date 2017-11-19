@@ -23,7 +23,7 @@ router.get('/', function(req, res) {
 router.post('/',upload.single('myimage'),function(req, res){
         var newImage = new itemImage();
         newImage.data = fs.readFileSync(req.file.path);
-        newImage.contentType = 'image/png';
+        newImage.contentType = req.file.path.mimetype;
         newImage.save();
         res.send(req.file);
     });

@@ -42,22 +42,19 @@ app.controller('HomeCtrl', ['$scope', '$resource',
   //       });
   //     }]);
 
-app.controller('AddItemCtrl', ['$scope', '$resource', '$location',
+app.controller('AddItemCtrl', ['$scope', '$location',
     function($scope, $resource, $location){
-      var items = $resource('/api/items',{},{save:{
-          method: 'POST'
-      }
+      var items = $resource('/api/items',{},{
+        save:{ method: 'POST' }
     });
       $scope.item={};
       $scope.submit = function(){
-        alert($scope.item.name);
         items.save($scope.item,function(result){
           if(result.status !='OK')
             throw result.status;
           $scope.item.push(result.data);
         });
       };
-
     }]);
 
 app.controller('EditItemCtrl', ['$scope', '$resource', '$location', '$routeParams',
