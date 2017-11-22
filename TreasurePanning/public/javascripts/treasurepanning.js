@@ -21,9 +21,9 @@ app.config(['$routeProvider', function($routeProvider){
             templateUrl: 'partials/item-delete.html',
             controller: 'DeleteItemCtrl'
         })
-        .otherwise({
-            redirectTo: '/'
-        });
+        // .otherwise({
+        //     redirectTo: '/'
+        // });
 }]);
 
 app.controller('HomeCtrl', ['$scope', '$resource',
@@ -42,20 +42,35 @@ app.controller('HomeCtrl', ['$scope', '$resource',
   //       });
   //     }]);
 
-app.controller('AddItemCtrl', ['$scope', '$location',
-    function($scope, $resource, $location){
-      var items = $resource('/api/items',{},{
-        save:{ method: 'POST' }
-    });
-      $scope.item={};
-      $scope.submit = function(){
-        items.save($scope.item,function(result){
-          if(result.status !='OK')
-            throw result.status;
-          $scope.item.push(result.data);
-        });
-      };
-    }]);
+// app.controller('AddItemCtrl', ['$scope','$multipartForm',
+//   function($scope,$multipartForm){
+//     $scope.item={};
+//     $scope.submit=function(){
+//       var uploadUrl="/api/items";
+//       multipartForm.post(uploadUrl,$scope.item);
+//     };
+//   }]);
+
+
+    // function($scope, $resource, $location){
+    //   var items = $resource('/api/items',{},{
+    //     save: {
+    //       method: 'POST',
+    //       transformRequest: angular.identity,
+    //       headers: { 'Content-Type': undefined }
+    //     }
+    // });
+    //   $scope.item={};
+    //   $scope.submit = function(){
+    //     console.log($scope.item.image);
+    //     items.save($scope.item,function(result){
+    //       if(result.status !='OK')
+    //         throw result.status;
+    //       $scope.item.push(result.data);
+    //       console.log($scope.item);
+    //     });
+    //   };
+    // }]);
 
 app.controller('EditItemCtrl', ['$scope', '$resource', '$location', '$routeParams',
     function($scope, $resource, $location, $routeParams){

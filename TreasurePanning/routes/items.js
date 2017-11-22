@@ -37,14 +37,21 @@ router.get('/', function(req, res) {
       	res.json(items);
     });
 });
-
-// router.post('/',function(req, res){
- router.post('/',upload.single('myimage'),function(req, res){
+ // 
+ // router.post('/',upload.single('image'),function(req, res){
+ //   console.log(req.body);
+ //   console.log(req.file);
+ //   res.json({success: true});
+ // });
+ //
+ router.post('/',upload.single('image'),function(req, res){
         var newItem = new itemModel();
         newItem.name = req.body.name;
         newItem.description = req.body.description;
-        // newItem.img.data = fs.readFileSync(req.file.path);
-        // newItem.img.contentType = 'image/png';
+
+        newItem.img.data = fs.readFileSync(req.file.path);
+        newItem.img.contentType = req.file.mimetype;
+        console.log(newItem);
         newItem.save();
     }
 );

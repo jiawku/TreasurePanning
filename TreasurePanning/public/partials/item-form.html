@@ -1,23 +1,42 @@
 <h1>Add a item</h1>
-<img src="/images/{{item.picture}}.jpg" href="/#/item/{{item._id}}" width="300px">
-<!-- <form class="from" name="form" novalidate ng-submit="submit()">
+<!-- <img src="/images/{{item.picture}}.jpg" href="/#/item/{{item._id}}" width="300px"> -->
+<form class="from" name="form" novalidate ng-submit="submit()">
     <div class="form-group">
         <label>name</label>
         <input class="form-control" ng-model="item.name" placeholder="Item Name" required>
     </div>
     <div class="form-group">
         <label>Description</label>
-        <textarea class="form-group" ng-model="item.description"></textarea>
+        <textarea class="form-group" ng-model="item.description" required></textarea>
     </div>
     <div class="form-group">
-      <input type="file" files-model="item.image" >
+      <input type="file" file-model="item.image" >
     </div>
     <div class="form-group clearfix">
       <input class="btn btn-successs pull-right" type="submit" ng-disabled="$form.invalid" value="Save">
     </div>
-</form> -->
+    {{item}}
+</form>
 
-<form action="/api/image/" method="POST" enctype="multipart/form-data">
+<!-- <form action="/api/image/" method="POST" enctype="multipart/form-data">
    <input type="file" name="myimage" >
    <input type="submit" name="submit" value="submit">
+</form> -->
+
+<!-- <form>
+  <div class="form-group">
+    <label for="name">Full Name</label>
+    <input type="text" class="form-control" id="name" placeholder="Enter name" ng-model="customer.name">
+  </div>
+  <div class="form-group">
+    <label for="email">Email address</label>
+    <input type="email" class="form-control" id="email" placeholder="Enter email" ng-model="customer.email">
+  </div>
+  <div class="form-group">
+    <label for="exampleInputFile">Avatar</label>
+    <input type="file" id="exampleInputFile" file-model="customer.file">
+  </div>
+  <button type="submit" class="btn btn-default" ng-click="submit()">Submit</button>
 </form>
+
+{{customer}} -->

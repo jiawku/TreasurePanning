@@ -8,7 +8,7 @@ var mongoose = require('mongoose');
 var passport = require('passport');
 var session=require('express-session');
 var LocalStrategy = require('passport-local').Strategy;
-var multer = require('multer');
+
 
 var index = require('./routes/index');
 var users = require('./routes/users');
