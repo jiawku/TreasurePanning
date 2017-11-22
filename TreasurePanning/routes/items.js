@@ -37,7 +37,7 @@ router.get('/', function(req, res) {
       	res.json(items);
     });
 });
- // 
+ //
  // router.post('/',upload.single('image'),function(req, res){
  //   console.log(req.body);
  //   console.log(req.file);
@@ -51,14 +51,20 @@ router.get('/', function(req, res) {
 
         newItem.img.data = fs.readFileSync(req.file.path);
         newItem.img.contentType = req.file.mimetype;
-        console.log(newItem);
         newItem.save();
     }
 );
 
+router.get('/image/:id', function(req, res) {
+    itemModel.findById(req.params.id, function (error, result) {
+      res.contentType(result.img.contentType);
+      res.end(result.img.data);
+    });
+});
+
 router.get('/:id', function(req, res) {
     var collection = db.get('items');
-    collection.findOne({ _id: req.params.id ,username:req.user.username},function(err, item){
+    collection.findOne({ _id: req.params.id},function(err, item){
         if (err) throw err;
 
       	res.json(item);
