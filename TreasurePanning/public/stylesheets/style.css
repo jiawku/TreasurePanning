@@ -124,7 +124,13 @@ padding-left: 40%;
 	width:28%;
 }
 
+.signupform{
+padding-left: 40%;
+}
 
+.signupform div{
+	width:55%;
+}
 
 div.gallery {
     margin: 5px;
@@ -150,4 +156,13 @@ div.desc {
 
 .viewitemform li{
 	list-style: none;
+}
+
+.listform{
+	padding-left: 35%;
+}
+
+.listform div{
+	width:40%;
+
 }

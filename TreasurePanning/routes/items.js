@@ -22,8 +22,8 @@ var itemSchema = new Schema({
   category : String,
   startPrice: Number,
   endBidTime: String,
-  img:{filename:String,
-    extention:String},
+  img:{contentType:String,
+    data:Buffer},
   addTimeStamp: String,
   seller: String,
   status: String,
@@ -53,13 +53,14 @@ router.get('/', function(req, res) {
         newItem.category=req.body.category;
         newItem.startPrice=req.body.startPrice;
         newItem.endBidTime=bidenddate.toLocaleString();
-        newItem.img.filename=req.file.filename;
-        newItem.img.extention=path.extname(req.file.originalname);
+        newItem.img.contentType=req.file.mimetype;
+        newItem.img.data=fs.readFileSync(req.file.path);
         newItem.addTimeStamp=new Date().toLocaleString();
         newItem.seller=req.user.username;
         newItem.status='active';
         newItem.isDeleted='false';
         newItem.save();
+
     }
 );
 

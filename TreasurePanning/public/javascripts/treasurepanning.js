@@ -11,8 +11,8 @@ app.config(['$routeProvider', function($routeProvider){
             controller: 'AddItemCtrl'
         })
         .when('/item/:id', {
-            templateUrl: 'partials/item-form.html',
-            controller: 'EditItemCtrl'
+            templateUrl: 'partials/item-view.html',
+            controller: 'ListItemCtrl'
         })
         .when('/item/delete/:id', {
             templateUrl: 'partials/item-delete.html',
@@ -76,21 +76,15 @@ app.controller('HomeCtrl', ['$scope', '$resource',
     //   };
     // }]);
 
-app.controller('EditItemCtrl', ['$scope', '$resource', '$location', '$routeParams',
-    function($scope, $resource, $location, $routeParams){
+app.controller('ListItemCtrl', ['$scope', '$resource', '$routeParams',
+    function($scope, $resource, $routeParams){
         var items = $resource('/api/items/:id', { id: '@_id' }, {
-            update: { method: 'PUT' }
+            update: { method: 'GET' }
         });
 
         items.get({ id: $routeParams.id }, function(item){
             $scope.item = item;
         });
-
-        $scope.save = function(){
-            items.update($scope.item, function(){
-                $location.path('/');
-            });
-        }
     }]);
 
 app.controller('DeleteItemCtrl', ['$scope', '$resource', '$location', '$routeParams',

@@ -1,9 +1,8 @@
 extends layout
 
 block content
-  .container
-      h1 Online Auction
-      p.lead User Signup
+  .signupform
+      h1 User Signup
       br
       form(role='form', action="/register",method="post", style='max-width: 300px;')
         .form-group
@@ -17,7 +16,7 @@ block content
         .form-group
           input.form-control(type='number', name="phone", placeholder='Phone Number')
         .form-group
-          input.form-control(type='text', name="address", placeholder='Address')
+          textarea.form-control(type='text', name="address", placeholder='Address')
         .form-group
           input.form-control(type='email', name="emailaddress", placeholder='Email Address')
         button.btn.btn-default(type='submit') Submit
