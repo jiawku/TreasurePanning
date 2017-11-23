@@ -1,42 +1,46 @@
+<div class="additemform">
 <h1>Add a item</h1>
-<!-- <img src="/images/{{item.picture}}.jpg" href="/#/item/{{item._id}}" width="300px"> -->
-<form class="from" name="form" novalidate ng-submit="submit()">
+<form  name="form" novalidate ng-submit="submit()">
     <div class="form-group">
-        <label>name</label>
-        <input class="form-control" ng-model="item.name" placeholder="Item Name" required>
+        <label>Name</label>
+        <input id="itemname" class="form-control" ng-model="item.name" placeholder="Enter Name" required>
     </div>
     <div class="form-group">
         <label>Description</label>
-        <textarea class="form-group" ng-model="item.description" required></textarea>
+        <textarea id="itemdescription" class="form-control" ng-model="item.description" placeholder="Enter Description" required></textarea>
     </div>
     <div class="form-group">
-      <input type="file" file-model="item.image" >
+        <label>Category</label>
+        <select id="itemcategory"class="form-control" ng-model="item.category" required>
+          <option value='0'>Select</option>
+          <option value="Apparels">Apparels</option>
+            <option value="Accessories">Accessories</option>
+          <option value="Antiques">Antiques</option>
+          <option value="Electronics">Electronics</option>
+          <option value="Footwear">Footwear</option>
+          <option value="Furniture">Furniture</option>
+          <option value="Hardware Equipments">Hardware Equipments</option>
+          <option value="Jewelry">Jewelry</option>
+          <option value="Musical Instruments">Musical Instruments</option>
+          <option value="Sports Equipments">Sports Equipments</option>
+          <option value="Vehicle">Vehicle</option>
+          <option value="Others">Others</option>
+        </select>
     </div>
-    <div class="form-group clearfix">
-      <input class="btn btn-successs pull-right" type="submit" ng-disabled="$form.invalid" value="Save">
+    <div class="form-group">
+        <label>Minimum Bid Amount</label>
+        <input id="itemstartprice" class="form-control" ng-model="item.startPrice" placeholder="Enter Amount" required>
     </div>
-    {{item}}
+    <div class="form-group">
+        <label>Bid End Time</label>
+        <input id="itemendtime" type="datetime-local" class="form-control" ng-model="item.endBidTime" placeholder="Enter Bid End Time" required>
+    </div>
+    <div class="form-group">
+      <label>Image</label>
+      <input id="itemfile" type="file" file-model="item.image" required >
+    </div>
+    <div class="form-group">
+      <input id="btnadd" class="btn btn-default" type="submit" ng-disabled="$form.invalid" value="Add Item">
+    </div>
 </form>
-
-<!-- <form action="/api/image/" method="POST" enctype="multipart/form-data">
-   <input type="file" name="myimage" >
-   <input type="submit" name="submit" value="submit">
-</form> -->
-
-<!-- <form>
-  <div class="form-group">
-    <label for="name">Full Name</label>
-    <input type="text" class="form-control" id="name" placeholder="Enter name" ng-model="customer.name">
-  </div>
-  <div class="form-group">
-    <label for="email">Email address</label>
-    <input type="email" class="form-control" id="email" placeholder="Enter email" ng-model="customer.email">
-  </div>
-  <div class="form-group">
-    <label for="exampleInputFile">Avatar</label>
-    <input type="file" id="exampleInputFile" file-model="customer.file">
-  </div>
-  <button type="submit" class="btn btn-default" ng-click="submit()">Submit</button>
-</form>
-
-{{customer}} -->
+<div>

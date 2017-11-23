@@ -7,9 +7,6 @@ app.config(['$routeProvider', function($routeProvider){
             controller: 'HomeCtrl'
         })
         .when('/add-item', {
-            templateUrl: 'partials/item-form.html'
-        })
-        .when('/add-item', {
             templateUrl: 'partials/item-form.html',
             controller: 'AddItemCtrl'
         })
@@ -20,6 +17,13 @@ app.config(['$routeProvider', function($routeProvider){
         .when('/item/delete/:id', {
             templateUrl: 'partials/item-delete.html',
             controller: 'DeleteItemCtrl'
+        })
+        .when('/contact-us', {
+            templateUrl: 'partials/contact.html',
+            controller: 'ContactCtrl'
+        })
+        .when('/about-us', {
+            templateUrl: 'partials/about.html'
         })
         // .otherwise({
         //     redirectTo: '/'

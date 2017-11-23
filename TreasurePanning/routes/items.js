@@ -1,27 +1,33 @@
 var express = require('express');
 var router = express.Router();
 var multer = require('multer');
+var path = require('path');
 var fs = require('fs');
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
+var storage = multer.diskStorage({
+  destination: './public/images/',
+  filename: function (req, file, cb) {
+    cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname));
+  }
+});
 
-var upload = multer({dest: 'public/uploads/'});
+var upload = multer({ storage: storage });
 
 mongoose.connect('root:root@ds243085.mlab.com:43085/treasurepanning');
 
 var itemSchema = new Schema({
   name: String,
-  // seller: String,
   description : String,
-  // startPrice
-  // addTimeStamp
-  // endBidTime
-  // status
-  // isDeleted
-  img:{
-    data: Buffer,
-    contentType: String
-  }
+  category : String,
+  startPrice: Number,
+  endBidTime: String,
+  img:{filename:String,
+    extention:String},
+  addTimeStamp: String,
+  seller: String,
+  status: String,
+  isDeleted: String
 });
 
 var itemModel = mongoose.model('Item',itemSchema);
@@ -37,20 +43,22 @@ router.get('/', function(req, res) {
       	res.json(items);
     });
 });
- //
- // router.post('/',upload.single('image'),function(req, res){
- //   console.log(req.body);
- //   console.log(req.file);
- //   res.json({success: true});
- // });
- //
+
  router.post('/',upload.single('image'),function(req, res){
+        var collection = db.get('itemSchema');
         var newItem = new itemModel();
+        var bidenddate = new Date(req.body.endBidTime);
         newItem.name = req.body.name;
         newItem.description = req.body.description;
-
-        newItem.img.data = fs.readFileSync(req.file.path);
-        newItem.img.contentType = req.file.mimetype;
+        newItem.category=req.body.category;
+        newItem.startPrice=req.body.startPrice;
+        newItem.endBidTime=bidenddate.toLocaleString();
+        newItem.img.filename=req.file.filename;
+        newItem.img.extention=path.extname(req.file.originalname);
+        newItem.addTimeStamp=new Date().toLocaleString();
+        newItem.seller=req.user.username;
+        newItem.status='active';
+        newItem.isDeleted='false';
         newItem.save();
     }
 );

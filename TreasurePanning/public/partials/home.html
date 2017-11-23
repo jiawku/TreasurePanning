@@ -1,15 +1,11 @@
-<h1>Home Page</h1>
-<ul>
-  <li ng-repeat="item in items">
-        <img src="/images/{{item.picture}}_tn.jpg" href="/#/item/{{item._id}}">
-        <a href="/#/item/{{item._id}}">
-            {{item.title}}
-        </a>
-        <a href="/#/item/delete/{{item._id}}">
-            <i class="glyphicon glyphicon-remove"></i>
-        </a>
+<ul class="viewitemform">
+  <li ng-repeat="item in items" >
+    <div class="gallery">
+      <img ng-src="images/{{item.img.filename}}" alt="Photo of {{item.name}}" width="300" height="200">
+      <div class="desc">
+        <h5>{{item.name}}</h5>
+        Minimum Bid: {{item.startPrice}}
+      </div>
+    </div>
   </li>
 </ul>
-<p>
-    <a href="/#/add-item">Add a item</a>
-</p>
