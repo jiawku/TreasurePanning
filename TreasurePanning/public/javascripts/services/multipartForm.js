@@ -4,9 +4,11 @@ app.service('multipartForm', ['$http', function($http){
 		for(var key in data){
 			fd.append(key, data[key]);
 		}
-		 $http.post(uploadUrl, fd, {
+		 return $http.post(uploadUrl, fd, {
 			transformRequest: angular.indentity,
 			headers: { 'Content-Type': undefined }
+		}).then(function(response){
+			console.log(response.data);
 		});
 	}
 }])
