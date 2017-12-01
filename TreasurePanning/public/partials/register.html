@@ -1,0 +1,36 @@
+<div class="alert alert-success" role="alert" ng-if="successMessage">{{successMessage}}</div>
+<div class="alert alert-danger" role="alert" ng-if="errorMessage">{{errorMessage}}</div>
+<div class="signupform">
+  <h1>Create Account</h1>
+  <br>
+  <form role="form" action="/register" method="post" style="max-width: 300px;">
+    <div class="form-group">
+      <input type="text" name="username" placeholder="Enter Username" class="form-control">
+    </div>
+    <div class="form-group">
+      <input type="password" name="password" placeholder="Enter Password" class="form-control">
+    </div>
+    <div class="form-group">
+      <input type="text" name="firstname" placeholder="Enter First Name" class="form-control">
+    </div>
+    <div class="form-group">
+      <input type="text" name="lastname" placeholder="Enter Last Name" class="form-control">
+    </div>
+    <div class="form-group">
+      <input type="number" name="phone" placeholder="Enter Phone Number" class="form-control">
+    </div>
+    <div class="form-group">
+      <textarea class="form-control" name="address" placeholder="Enter Address" ></textarea>
+    </div>
+    <div class="form-group">
+      <input type="email" name="emailaddress" placeholder="Enter Email Address" class="form-control">
+    </div>
+    <button type="submit" class="btn btn-default">Submit</button>
+    &nbsp;
+    <a href="/#/">
+      <button type="button" class="btn btn-primary">
+        Cancel
+      </button>
+    </a>
+  </form>
+</div>

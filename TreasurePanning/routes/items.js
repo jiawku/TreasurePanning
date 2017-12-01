@@ -45,7 +45,6 @@ router.get('/', function(req, res) {
 });
 
  router.post('/',upload.single('image'),function(req, res){
-        var collection = db.get('itemSchema');
         var newItem = new itemModel();
         var bidenddate = new Date(req.body.endBidTime);
         newItem.name = req.body.name;
@@ -57,10 +56,9 @@ router.get('/', function(req, res) {
         newItem.img.data=fs.readFileSync(req.file.path);
         newItem.addTimeStamp=new Date().toLocaleString();
         newItem.seller=req.user.username;
-        newItem.status='active';
+        newItem.status='open';
         newItem.isDeleted='false';
         newItem.save();
-
     }
 );
 
@@ -75,7 +73,6 @@ router.get('/:id', function(req, res) {
     var collection = db.get('items');
     collection.findOne({ _id: req.params.id},function(err, item){
         if (err) throw err;
-
       	res.json(item);
     });
 });
@@ -89,6 +86,7 @@ router.put('/:id', function(req, res){
         title: req.body.title,
         description: req.body.description,
         username: req.user.username
+
     }, function(err, item){
         if (err) throw err;
 
@@ -96,13 +94,14 @@ router.put('/:id', function(req, res){
     });
 });
 
+/*
 router.delete('/:id', function(req, res){
     var collection = db.get('items');
-    collection.remove({ _id: req.params.id ,username:req.user.username}, function(err, item){
+    collection.remove({ _id: req.params.id}, function(err, item){
         if (err) throw err;
 
         res.json(item);
     });
 });
-
-module.exports = router;
+*/
+module.exports=router;

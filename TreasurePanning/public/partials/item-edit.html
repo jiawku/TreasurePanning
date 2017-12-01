@@ -1,0 +1,50 @@
+<div class="additemform">
+<h1>Item Details</h1>
+<form  name="frmEdit" ng-submit="submit()">
+    <div class="form-group">
+      <img ng-src="/api/items/image/{{item._id}}" alt="Photo of {{item.name}}" width="350px" height="400px">
+    </div>
+    <div class="form-group">
+        <label>Name</label>
+        <input id="itemname1" class="form-control" ng-model="item.name" placeholder="Enter Name" required>
+    </div>
+    <div class="form-group">
+        <label>Description</label>
+        <textarea id="itemdescription1" class="form-control" ng-model="item.description" placeholder="Enter Description" required></textarea>
+    </div>
+    <div class="form-group">
+        <label>Category</label>
+        <select id="itemcategory1" class="form-control" ng-model="item.category" required>
+          <option value='0'>Select</option>
+          <option value="Apparels">Apparels</option>
+          <option value="Accessories">Accessories</option>
+          <option value="Antiques">Antiques</option>
+          <option value="Electronics">Electronics</option>
+          <option value="Footwear">Footwear</option>
+          <option value="Furniture">Furniture</option>
+          <option value="Hardware Equipments">Hardware Equipments</option>
+          <option value="Jewelry">Jewelry</option>
+          <option value="Musical Instruments">Musical Instruments</option>
+          <option value="Sports Equipments">Sports Equipments</option>
+          <option value="Vehicle">Vehicle</option>
+          <option value="Others">Others</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label>Minimum Bid Amount</label>
+        <input id="itemstartprice1" class="form-control" ng-model="item.startPrice" placeholder="Enter Amount" required>
+    </div>
+    <div class="form-group">
+        <label>Bid End Time</label>
+        <input id="itemendtime1" type="datetime-local" class="form-control" ng-model="item.endBidTime" placeholder="Enter Bid End Time" required>
+    </div>
+    <div class="form-group">
+      <label>Image</label>
+      <input id="itemfile1" type="file" file-model="item.image" required >
+    </div>
+    <div class="form-group">
+      <input id="btnedit1" class="btn btn-primary" type="submit" value="Save">
+      <a class="btn btn-default" href="/#/item/{{item._id}}">Back</a>
+    </div>
+  </form>
+</div>

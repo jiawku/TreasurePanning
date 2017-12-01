@@ -1,17 +1,18 @@
+<div class="alert alert-success" role="alert" ng-if="successMessgae">{{successMessgae}}</div>
 <div class="additemform">
   <h1>Contact Us</h1>
 <form>
   <div class="form-group">
-    <input class="form-control" name="name" type="text" placeholder="Enter your name" size="30"/><br>
+    <input class="form-control" ng-model="query.name" type="text" placeholder="Enter your name">
   </div>
   <div class="form-group">
-    <input class="form-control" name="email" type="text" placeholder="Enter your email" size="30"/><br>
+    <input type="email" ng-model="query.email" placeholder="Enter Email Address" class="form-control">
   </div>
   <div class="form-group">
-    <textarea class="form-control" name="message" placeholder="Enter your message" rows="7" cols="30"></textarea><br>
+    <textarea class="form-control" ng-model="query.message" placeholder="Enter your message" rows="7" cols="30"></textarea>
   </div>
   <div class="form-group">
-    <input class="btn btn-default" type="submit" value="Send email">
+    <input type="button" class="btn btn-primary" value="Submit" ng-click="save()"></input>
   </div>
 </form>
-<div>
+</div>

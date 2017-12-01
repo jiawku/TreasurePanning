@@ -1,5 +1,28 @@
-<ul class="viewitemform">
-  <li ng-repeat="item in items" >
+
+<div class="viewitemform">
+  <div class="search">
+   <h1>Items Directory</h1>
+   <label>Search: </label>
+   <input ng-model="query" placeholder="Search for items" autofocus>
+   <label class="formgroup">by:
+     <select ng-model="itemOrders">
+       <option value="name">Name</option>
+       <option value="startPrice">Bid Amount</option>
+     </select>
+   </label>
+
+   <label class="formgroup">
+     <input type="radio" ng-model="direction" name="direction" checked>
+     Ascending
+    </label>
+   <label class="formgroup">
+     <input type="radio" ng-model="direction" name="direction" value="reverse">
+     Descending
+   </label>
+ </div>
+ <div>
+<ul>
+  <li dir-paginate="item in items | itemsPerPage:12 |filter:query | orderBy: itemOrders:direction">
     <div class="gallery">
       <a href="/#/item/{{item._id}}">
       <img ng-src="/api/items/image/{{item._id}}" alt="Photo of {{item.name}}">
@@ -11,3 +34,8 @@
     </div>
   </li>
 </ul>
+</div>
+<div>
+  <dir-pagination-controls></dir-pagination-controls>
+</div>
+</div>

@@ -10,41 +10,7 @@ html(ng-app='TreasurePanning')
     script(src='/javascripts/directives/fileModel.js')
     script(src='/javascripts/services/multipartForm.js')
     script(src='/javascripts/controllers/AddItemCtrl.js')
-    script(src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js")
+    script(src='/javascripts/dirPagination.js')
     link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css')
   body
-    .header
-        h1.halign Treasure Panning
-        .formalign
-          form(role='form', action="/login",method="post", style='max-width: 300px;')
-            .form-group
-              input.form-control(type='text', name="username", placeholder='Enter Username')
-            .form-group
-              input.form-control(type='password', name="password", placeholder='Password')
-            button.btn.btn-default(type='submit') Login
-            &nbsp;&nbsp;
-            .registerlink
-              a(href="/register" style='color:white;') Sign Up
-    ul.navigation-bar
-      li
-        a(href="/#/") Home
-      li.dropdown
-        a.dropbtn(href="javascript:void(0)") Product
-        div.dropdown-content
-          a(href="/#/add-item") Add Product
-          a(href="./public/partials/delete-product.html") Delete Product
-          a(href="./public/partials/update-product.html") Update Product
-          a(href="/#/") View Product
-      li
-        .dropdown
-          a.dropbtn(href="javascript:void(0)") Bids
-          div.dropdown-content
-            a(href="./public/partials/view-bids.html") View Bids
-      li
-        a(href="/#/about-us") About Us
-      li
-        a(href="/#/contact-us") Contact Us
-    .main-content
-        block content
-    .footer
-      p Treasure Panning &copy; 2017
+    block content
