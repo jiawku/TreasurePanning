@@ -1,5 +1,5 @@
-<div class="alert alert-success" role="alert" ng-if="successMessgae">{{successMessgae}}</div>
-<div class="additemform">
+<div class="alert alert-success" role="alert" ng-if="successMessgae"><p style="font-size:200%; text-align:center;">{{successMessgae}}</p></div>
+<div class="additemform" ng-if="showForm">
 <h1>Add a item</h1>
 <form  name="form" ng-submit="submit()">
     <div class="form-group">

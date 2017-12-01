@@ -59,6 +59,7 @@ router.get('/', function(req, res) {
         newItem.status='open';
         newItem.isDeleted='false';
         newItem.save();
+        res.end("success");
     }
 );
 
