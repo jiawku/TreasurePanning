@@ -1,12 +1,13 @@
-<div class="signupform">
-  <h1>Sign in</h1>
-  <br>
-  <form role="form" ng-submit="submit()" method="post" style="max-width: 300px;">
+<div class="alert alert-success" role="alert" ng-if="message"><p style="font-size:200%; text-align:center;">{{message}}</p></div>
+<div class="signupform" ng-if="showForm">
+  <form role="form"  ng-submit="submit()" method="post" style="max-width: 300px;">
+    <h1>Sign in</h1>
+    <br>
     <div class="form-group">
-      <input type="text" name="username" placeholder="Enter Username" ng-model="username" class="form-control">
+      <input type="text" name="username" placeholder="Enter Username" ng-model="user.username" class="form-control">
     </div>
     <div class="form-group">
-      <input type="password" name="password" placeholder="Password" class="form-control">
+      <input type="password" name="password" ng-model="user.password" placeholder="Password" class="form-control">
     </div>
       <button type="submit" class="btn btn-default">Submit</button>
       &nbsp;
