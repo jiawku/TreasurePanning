@@ -20,7 +20,7 @@
      Descending
    </label>
  </div>
- <div>
+ <div class="col-md-12">
 <ul>
   <li dir-paginate="item in items | itemsPerPage:12 |filter:query | orderBy: itemOrders:direction">
     <div class="gallery">
@@ -36,6 +36,6 @@
 </ul>
 </div>
 <div>
-  <dir-pagination-controls></dir-pagination-controls>
+  <p style="text-align:center"><dir-pagination-controls></dir-pagination-controls></p>
 </div>
 </div>

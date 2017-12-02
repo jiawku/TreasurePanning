@@ -80,7 +80,7 @@ a {
 	color: white;
 	text-align: center;
 	font-family:sans-serif;
-	position: absolute;
+	position: relative;
 }
 
 .halign{
@@ -223,10 +223,4 @@ div.desc1 {
 
 .search select{
 	color: black;
-}
-
-dir-pagination-controls{
-	float:left;
-	margin-right: 380px;
-	margin-left: 640px;
 }
