@@ -1,6 +1,7 @@
+<div class="alert alert-success" role="alert" ng-if="successMessgae"><p style="font-size:200%; text-align:center;">{{successMessgae}}</p></div>
 <div class="listform">
 <h1>Delete Item</h1>
-<form  name="form" ng-submit="submit()">
+<form  name="formDelete" >
 <p>
     Are you sure you want to delete this item?
 </p>
@@ -26,7 +27,7 @@
     {{item.endBidTime}}
 </div>
 <div class="form-group">
-  <input id="btndelete" class="btn btn-default" type="submit" value="Delete Item">
+  <input type="button" class="btn btn-primary" value="Delete Item" ng-click="delete()"></input>
   <a class="btn btn-default" href="/#/item/{{item._id}}">Back</a>
 </div>
 </form>

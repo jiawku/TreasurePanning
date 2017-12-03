@@ -12,6 +12,7 @@ a {
 	height:160px;
 	background-color: #494949;
 	color: white;
+	clear: both;
 
 }
 
@@ -21,6 +22,8 @@ a {
     padding: 0;
 		overflow: hidden;
     background-color: #333;
+		/*height:140px;*/
+		width:100%;
 }
 
 .navigation-bar li {
@@ -100,7 +103,7 @@ margin-right: 10px;
   padding-top:10px;
   padding-bottom:10px;
   width: 100%;
-  /*height: 1000px;*/
+  height:1000px;
 	background-color: #d5e0f2;
 }
 
@@ -125,7 +128,7 @@ padding-left:43%;
 }
 
 div.gallery {
-    margin: 22px;
+    margin: 3px;
     border: 1px solid #ccc;
     float: left;
     width: 180px;
@@ -223,4 +226,10 @@ div.desc1 {
 
 .search select{
 	color: black;
+}
+.contactform{
+	padding-left: 40%;
+}
+.contactform div{
+	width:28%;
 }
