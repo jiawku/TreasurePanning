@@ -1,36 +1,53 @@
-<div class="alert alert-success" role="alert" ng-if="successMessage">{{successMessage}}</div>
-<div class="alert alert-danger" role="alert" ng-if="errorMessage">{{errorMessage}}</div>
-<div class="signupform">
+<div class="alert {{registerStatus}}" role="alert" ng-if="registerMessage">{{registerMessage}}</div>
+<div class="signupform" >
   <h1>Create Account</h1>
   <br>
-  <form role="form" action="/register" method="post" style="max-width: 300px;">
+  <form name="registerForm" novalidate ng-submit="register()" style="max-width: 400px;">
     <div class="form-group">
-      <input type="text" name="username" placeholder="Enter Username" class="form-control">
+      <label>Username</label>
+      <input type="text" name="username" placeholder="Enter Username" class="form-control" ng-model="signupForm.username" required>
     </div>
     <div class="form-group">
-      <input type="password" name="password" placeholder="Enter Password" class="form-control">
+      <label>Password</label>
+      <input type="password" name="password" ng-pattern='/^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]/' ng-minlength="8" placeholder="Enter Password" class="form-control" ng-model="signupForm.password" password-verify="{{password2}}" required>
+    </div>
+    <div class="alert alert-danger" ng-show="registerForm.password.$invalid && registerForm.password.$dirty">
+      <p ng-show="registerForm.password.$error.minlength">minimum length is 8</p>
+      <p ng-show="registerForm.password.$error.pattern">must have a letter, a digit and a special charecter includes *[$@$!%*#?&</p>
+      <p ng-show="registerForm.password.$error.required">must have a password</p>
+      <p ng-show="registerForm.password.$error.passwordVerify">password don't match</p>
     </div>
     <div class="form-group">
-      <input type="text" name="firstname" placeholder="Enter First Name" class="form-control">
+      <label>Input Password again</label>
+      <input type="password" name="password2"  placeholder="Enter Password again" class="form-control" ng-model="password2" password-verify="{{signupForm.password}}" required>
     </div>
     <div class="form-group">
-      <input type="text" name="lastname" placeholder="Enter Last Name" class="form-control">
+      <label>Firstname</label>
+      <input type="text" name="firstname" placeholder="Enter First Name" class="form-control" ng-model="signupForm.firstname" required>
     </div>
     <div class="form-group">
-      <input type="number" name="phone" placeholder="Enter Phone Number" class="form-control">
+      <label>Lastname</label>
+      <input type="text" name="lastname" placeholder="Enter Last Name" class="form-control" ng-model="signupForm.lastname" required>
     </div>
     <div class="form-group">
-      <textarea class="form-control" name="address" placeholder="Enter Address" ></textarea>
+      <label>Phone</label>
+      <input type="phone" name="phone" placeholder="Enter Phone Number" class="form-control" ng-model="signupForm.phone" required>
     </div>
     <div class="form-group">
-      <input type="email" name="emailaddress" placeholder="Enter Email Address" class="form-control">
+      <label>Address</label>
+      <textarea class="form-control" name="address" placeholder="Enter Address" ng-model="signupForm.address" required></textarea>
     </div>
-    <button type="submit" class="btn btn-default">Submit</button>
+    <div class="form-group">
+      <label>Email</label>
+      <input type="email" name="emailaddress" placeholder="Enter Email Address" class="form-control" ng-model="signupForm.email" required>
+    </div>
+    <div class="form-group">
+      <button type="submit" class="btn btn-success" ng-disabled="registerForm.$invalid">Submit</button>
+      <a href="/#/">
+        <button type="button" class="btn btn-primary">Cancel</button>
+      </a>
+    </div>
     &nbsp;
-    <a href="/#/">
-      <button type="button" class="btn btn-primary">
-        Cancel
-      </button>
-    </a>
+
   </form>
 </div>
