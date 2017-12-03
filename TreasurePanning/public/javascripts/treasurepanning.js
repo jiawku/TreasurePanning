@@ -27,10 +27,11 @@ app.config(['$routeProvider', function($routeProvider){
         })
         .when('/login',{
           templateUrl: 'partials/login.html',
-          controller:'LoginController'        
+          controller:'LoginController'
         })
         .when('/register',{
-        templateUrl: 'partials/register.html'
+          templateUrl: 'partials/register.html',
+          controller:'RegisterController'
         })
         .when('/item/edit/:id',{
         templateUrl: 'partials/item-edit.html',

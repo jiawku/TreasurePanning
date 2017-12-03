@@ -1,4 +1,4 @@
-<div class="alert alert-success" role="alert" ng-if="message"><p style="font-size:200%; text-align:center;">{{message}}</p></div>
+<div class="alert {{loginStatus}}" role="alert" ng-if="message"><p style="font-size:200%; text-align:center;">{{message}}</p></div>
 <div class="signupform" ng-if="showForm">
   <form role="form"  ng-submit="submit()" method="post" style="max-width: 300px;">
     <h1>Sign in</h1>
