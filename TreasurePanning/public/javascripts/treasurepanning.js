@@ -35,11 +35,11 @@ app.config(['$routeProvider', function($routeProvider){
         })
         .when('/item/edit/:id',{
         templateUrl: 'partials/item-edit.html',
-        controller: 'EditItemCtrl'
+          controller: 'EditItemCtrl'
         })
-        // .otherwise({
-         //     redirectTo: '/'
-         // });
+        .otherwise({
+            redirectTo: '/'
+          });
 }]);
 
 
@@ -73,19 +73,46 @@ app.controller('ListItemCtrl', ['$scope', '$resource', '$routeParams',
         });
     }]);
 
-    app.controller('DeleteItemCtrl', ['$scope', '$resource', '$location', '$routeParams',
-        function($scope, $resource, $location, $routeParams){
-            var items = $resource('/api/items/:id', { id: '@_id' }, {
-                update: { method: 'PUT' }
-            });
+app.controller('DeleteItemCtrl', ['$timeout','$scope', '$resource', '$location', '$routeParams',
+    function($timeout,$scope, $resource, $location, $routeParams){
+        var Items = $resource('/api/items/:id', { id: '@_id' }, {
+            update: { method: 'PUT' }
+        });
 
-            items.get({ id: $routeParams.id }, function(item){
-                $scope.item = item;
-            });
+        Items.get({ id: $routeParams.id }, function(item){
+            $scope.item = item;
+        });
 
-            $scope.delete = function(){
-              items.update($scope.item, function(item){
-                  $location.path('/');
-              });
-            }
-        }]);
+        $scope.delete = function(){
+            Items.update($scope.item, function(){
+                $scope.successMessgae="Item is deleted successfully.";
+                $timeout(function () {
+                  $location.path("/");
+                }, 2000);
+            });
+          }
+    }]);
+
+app.controller('EditItemCtrl', ['$timeout','$window','$resource','$scope','multipartForm','$location','$routeParams',
+  function($timeout,$window,$resource,$scope,multipartForm,$location,$routeParams){
+    var Items = $resource('/api/items/:id', { id: '@_id' }, {
+        update: { method: 'PUT' }
+    });
+
+    Items.get({ id: $routeParams.id }, function(item){
+        $scope.item = item;
+        $scope.item.addTimeStamp=new Date(item.addTimeStamp);
+        $scope.item.endBidTime=new Date(item.endBidTime);
+    });
+
+    $scope.submit=function(){
+      var uploadUrl="/api/items/"+$routeParams.id;
+      multipartForm.post(uploadUrl,$scope.item).then(function(){
+       $scope.successMessgae='Item is updated successfully.';
+       $timeout(function () {
+         $location.path("/");
+         $window.location.reload(true);
+       }, 2000);
+    });
+  };
+}]);

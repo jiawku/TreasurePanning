@@ -38,7 +38,7 @@ var db = monk('root:root@ds243085.mlab.com:43085/treasurepanning');
 
 router.get('/', function(req, res) {
     var collection = db.get('items');
-    collection.find({}, function(err, items){
+    collection.find({isDeleted:'false',status:'open'}, function(err, items){
         if (err) throw err;
       	res.json(items);
     });
@@ -63,6 +63,8 @@ router.get('/', function(req, res) {
     }
 );
 
+
+
 router.get('/image/:id', function(req, res) {
     itemModel.findById(req.params.id, function (error, result) {
       res.contentType(result.img.contentType);
@@ -78,31 +80,40 @@ router.get('/:id', function(req, res) {
     });
 });
 
+
 router.put('/:id', function(req, res){
-    var collection = db.get('items');
-    collection.update({
-        _id: req.params.id
-    },
-    {
-        title: req.body.title,
-        description: req.body.description,
-        username: req.user.username
-
-    }, function(err, item){
-        if (err) throw err;
-
-        res.json(item);
+  itemModel.findById(req.params.id, function (err, item) {
+    if (err) return handleError(err);
+      item.isDeleted = 'true';
+      item.save(function (err, deletedItem) {
+        if (err) return handleError(err);
+       res.send(deletedItem);
     });
+  });
 });
 
-/*
-router.delete('/:id', function(req, res){
-    var collection = db.get('items');
-    collection.remove({ _id: req.params.id}, function(err, item){
-        if (err) throw err;
 
-        res.json(item);
-    });
-});
-*/
+router.post('/:id',upload.single('image'),function(req, res){
+  itemModel.findById(req.params.id, function (err, item) {
+    if (err) return handleError(err);
+       var bidenddate = new Date(req.body.endBidTime);
+       //console.log(req.params.id);
+       item.name = req.body.name;
+       item.description = req.body.description;
+       item.category=req.body.category;
+       item.startPrice=req.body.startPrice;
+       item.endBidTime=bidenddate.toLocaleString();
+       item.img.contentType=req.file.mimetype;
+       item.img.data=fs.readFileSync(req.file.path);
+       item.addTimeStamp=new Date().toLocaleString();
+       item.seller=req.user.username;
+       item.status='open';
+       item.isDeleted='false';
+       item.save(function (err, updatedItem) {
+        if (err) return handleError(err);
+        res.send(updatedItem);
+        });
+      });
+   });
+
 module.exports=router;

@@ -12,8 +12,5 @@ app.controller('AddItemCtrl', ['$timeout','$scope','multipartForm','$location',
           $location.path("/");
         }, 2000);
       });
-      // $location.path("/");
-
-
     };
   }]);
