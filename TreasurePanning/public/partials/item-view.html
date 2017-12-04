@@ -1,4 +1,4 @@
-<div class="listform">
+<div class="listform container">
 <h1>Item Details</h1>
     <div class="form-group">
       <img ng-src="/api/items/image/{{item._id}}" alt="Photo of {{item.name}}" width="350px" height="400px">
@@ -27,9 +27,40 @@
         <a href='/#/item/delete/{{item._id}}'>
           <input type="button" name="btndelete" class="btn btn-danger" value="Delete Item"></input>
         </a>
-        <a href='/#/item/edit/{{item._id}}'>
-          <input type="button" name="btnedit" class="btn btn-primary" value="Edit Item"></input>
+        <a href="/#/item/edit/{{item._id}}">
+          <input type="button" name="btnedit" class="btn btn-primary" value="Edit Item">
         </a>
+    </div>
+
+    <div name="bids" class="span3 col-md-6 col-md-offset-3">
+      <table class="table table-sm table-hover text-info table-dark">
+          <caption><strong>List of Bids</strong></caption>
+          <thead>
+            <tr>
+              <th scope="col">Bid Price</th>
+              <th scope="col">Bid Time</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr ng-repeat="bid in bids">
+              <td>{{bid.bidPrice}}</td>
+              <td>{{bid.bidtime}}</td>
+            </tr>
+          </tbody>
+        </table>
+    </div>
+
+    <div id="form" class="col-md-6 col-centered col-md-offset-3">
+      <div class="alert {{bidStatus}}" role="alert" ng-if="bidMessage">{{bidMessage}}</div>
+      <form name="bidForm" novalidate class="form-inline" role="form" ng-submit="addBid()" method="post">
+        <div class="form-group">
+          <label for="bid" class="control-label col-sm-3">Your bid</label>
+          <div class="col-sm-8">
+            <input type="number" class="form-control" name="bid" ng-model="newBid.bidPrice" password-verify="newBid.bidPrice" placeholder="input your bid price" required>
+          </div>
+        </div>
+            <button type="submit" ng-disabled="bidForm.$invalid" class="btn btn-default">Add bid</button>
+      </form>
     </div>
 
 </div>

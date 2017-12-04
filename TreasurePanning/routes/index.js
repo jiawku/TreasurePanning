@@ -80,7 +80,10 @@ var router=express.Router();
 
     router.get('/logout', function(req, res) {
       req.logout();
-      res.redirect('/');
+      res.redirect("/");
+      // res.status(200).json({
+      //   status: 'Bye!'
+      // });
     });
 
     router.get('/ping', function(req, res){
