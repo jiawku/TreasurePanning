@@ -48,8 +48,6 @@ app.controller('AddItemCtrl', ['$timeout','$scope','multipartForm','$location',
                   $scope.newBid={};
                   $scope.bidForm.$setPristine();
                   $scope.bidForm.$setUntouched();
-                  // $location.path('/');
-                  console.log(res);
               });
           };
       }]);
