@@ -16,24 +16,26 @@ app.controller('AddItemCtrl', ['$timeout','$scope','multipartForm','$location',
     };
   }]);
 
-  app.controller('ListItemCtrl', ['$scope', '$resource', '$routeParams',
-      function($scope, $resource, $routeParams){
+  app.controller('ListItemCtrl', ['$scope', '$resource', '$routeParams','$route',
+      function($scope, $resource, $routeParams,$route){
           var items = $resource('/api/items/:id');
           $scope.bids={};
           items.get({ id: $routeParams.id }, function(item){
               $scope.item = item;
+
+              var itemBids= $resource('/api/bids/item/:id',
+                                      {id:$routeParams.id},
+                                      {get:{method:'get',isArray:true}}
+                                     );
+
+              itemBids.get({id:$routeParams.id},function(bids){
+                $scope.bids=bids;
+                $scope.maxBid = Math.max.apply(Math,$scope.bids.map(function(bid){return bid.bidPrice;}));
+                if($scope.maxBid<$scope.item.startPrice){$scope.maxBid=$scope.item.startPrice;}
+              });
           });
 
-          var itemBids= $resource('/api/bids/item/:id',
-                                  {id:$routeParams.id},
-                                  {get:{method:'get',isArray:true}}
-                                 );
 
-          itemBids.get({id:$routeParams.id},function(bids){
-            $scope.bids=bids;
-            $scope.maxBid = Math.max.apply(Math,$scope.bids.map(function(bid){return bid.bidPrice;}));
-
-          });
 
 
           // $scope.max = Math.max.apply(Math,$scope.bids.map(function(bid){return bid.bidPrice;}));
@@ -48,8 +50,13 @@ app.controller('AddItemCtrl', ['$timeout','$scope','multipartForm','$location',
                   $scope.newBid={};
                   $scope.bidForm.$setPristine();
                   $scope.bidForm.$setUntouched();
-                  // $location.path('/');
-                  console.log(res);
+                  $route.reload();
+              },function(err){
+                  $scope.bidMessage="Biding error.Please login before biding.";
+                  $scope.bidStatus="alert-danger";
+                  $scope.newBid={};
+                  $scope.bidForm.$setPristine();
+                  $scope.bidForm.$setUntouched();
               });
           };
       }]);
