@@ -24,13 +24,4 @@ router.get('/',function(req,res){
 
 })
 
-/*
-wishlist.insert({
-    itemID:item._id,
-    item_user:req.user.username
-}, function(err, wishlistItem){
-    if (err) throw err;
-    res.json(wishlistItem);
-});
-*/
 module.exports=router;
