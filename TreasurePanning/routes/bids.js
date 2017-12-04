@@ -24,8 +24,25 @@ var db = monk('root:root@ds243085.mlab.com:43085/treasurepanning');
 
 
 router.get('/', function(req, res) {
-    var collection = db.get('bid');
-    collection.find({isDeleted:'false'}, function(err, bids){
+    var collection = db.get('bids');
+    collection.find({"isDeleted":"false"}, function(err, bids){
+        if (err) throw err;
+      	res.json(bids);
+    });
+});
+
+
+router.get('/item/:id', function(req, res) {
+    var collection = db.get('bids');
+    collection.find({itemID: req.params.id,"isDeleted":"false"}, function(err, bids){
+        if (err) throw err;
+      	res.json(bids);
+    });
+});
+
+router.get('/user/', function(req, res) {
+    var collection = db.get('bids');
+    collection.find({bider: req.user.username,"isDeleted":"false"}, function(err, bids){
         if (err) throw err;
       	res.json(bids);
     });
@@ -40,7 +57,7 @@ router.get('/', function(req, res) {
         newBid.bidtime=new Date().toLocaleString();
         newBid.isDeleted='false';
         newBid.save();
-        res.end("success");
+        res.json({"status":"success"});
     }
 );
 

@@ -103,7 +103,7 @@ margin-right: 10px;
   padding-top:10px;
   padding-bottom:10px;
   width: 100%;
-  height:1000px;
+  /*height:1000px;*/
 	background-color: #d5e0f2;
 }
 
@@ -232,4 +232,10 @@ div.desc1 {
 }
 .contactform div{
 	width:28%;
+}
+
+.span3 {
+    height: 200px;
+    overflow: auto;
+		text-align: center;
 }
