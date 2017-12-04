@@ -1,3 +1,4 @@
+<div class="alert alert-success" role="alert" ng-if="successMessgae"><p style="font-size:200%; text-align:center;">{{successMessgae}}</p></div>
 <div class="listform">
 <h1>Item Details</h1>
     <div class="form-group">
@@ -24,12 +25,8 @@
         {{item.endBidTime}}
     </div>
     <div>
-        <a href='/#/item/delete/{{item._id}}'>
-          <input type="button" name="btndelete" class="btn btn-danger" value="Delete Item"></input>
-        </a>
-        <a href='/#/item/edit/{{item._id}}'>
-          <input type="button" name="btnedit" class="btn btn-primary" value="Edit Item"></input>
-        </a>
+        <input type="button" class="btn btn-primary" value="Add to Wishlist" ng-click="save()"></input>
+        <a class="btn btn-default" href="/#/">Back</a>
     </div>
 
 </div>

@@ -34,8 +34,12 @@ app.config(['$routeProvider', function($routeProvider){
           controller:'RegisterController'
         })
         .when('/item/edit/:id',{
-        templateUrl: 'partials/item-edit.html',
+          templateUrl: 'partials/item-edit.html',
           controller: 'EditItemCtrl'
+        })
+        .when('/wishlist/:id',{
+          templateUrl: 'partials/item-wishlist.html',
+          controller: 'WishlistCtrl'
         })
         .otherwise({
             redirectTo: '/'
@@ -116,3 +120,24 @@ app.controller('EditItemCtrl', ['$timeout','$window','$resource','$scope','multi
     });
   };
 }]);
+
+
+
+app.controller('WishlistCtrl', ['$scope', '$resource', '$routeParams','$location','$timeout',
+    function($scope, $resource, $routeParams,$location,$timeout){
+        var items = $resource('/api/items/:id');
+
+        items.get({ id: $routeParams.id }, function(item){
+            $scope.item = item;
+        });
+
+        $scope.save = function(){
+           var WishItems = $resource('/api/wishlists/:id',{id:$routeParams.id});
+           WishItems.save($scope.item, function(){
+             $scope.successMessgae="Item is added to your wishlist.";
+             $timeout(function () {
+               $location.path("/");
+             }, 2000);
+           });
+       };
+    }]);

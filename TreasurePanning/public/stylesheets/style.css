@@ -128,11 +128,11 @@ padding-left:43%;
 }
 
 div.gallery {
-    margin: 3px;
+    margin: 10px;
     border: 1px solid #ccc;
     float: left;
-    width: 180px;
-		height:310px;
+    width: 200px;
+		height:320px;
 }
 
 div.gallery:hover {
@@ -145,7 +145,7 @@ div.gallery img {
 }
 
 div.desc {
-    padding: 15px;
+
     text-align: center;
 }
 div.gallery1 {
