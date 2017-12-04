@@ -49,8 +49,10 @@
           </tbody>
         </table>
     </div>
-
-    <div id="form" class="col-md-6 col-centered col-md-offset-3">
+    <div class="col-md-6 col-centered col-md-offset-3 alert alert-danger" ng-hide="dateValidity">
+      <p >Auction already ended.</p>
+    </div>
+    <div id="form" ng-show="dateValidity" class="col-md-6 col-centered col-md-offset-3">
       <div class="alert {{bidStatus}}" role="alert" ng-if="bidMessage">{{bidMessage}}</div>
       <form name="bidForm" novalidate class="form-inline" role="form" ng-submit="addBid()" method="post">
         <div class="alert alert-danger" ng-show="bidForm.bid.$invalid && bidForm.bid.$dirty">

@@ -15,6 +15,7 @@ app.directive('bidVerify', bidVerify);
           var val2 = scope.maxBid;
           // set validity
           ngModel.$setValidity('bidVerify', val1 > val2);
+          // ngModel.$setValidity('bidVerify_time',scope.endTime> new Date());
         };
       }
     }

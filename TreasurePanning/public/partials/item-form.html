@@ -34,7 +34,7 @@
     </div>
     <div class="form-group">
         <label>Bid End Time</label>
-        <input id="itemendtime" type="datetime-local" class="form-control" ng-model="item.endBidTime" placeholder="Enter Bid End Time" required>
+        <input id="itemendtime" type="date" class="form-control" ng-model="item.endBidTime"  min="{{date | date:'yyyy-MM-dd'}}" placeholder="Enter Bid End Time" required>
     </div>
     <div class="form-group">
       <label>Image</label>

@@ -2,6 +2,7 @@ app.controller('AddItemCtrl', ['$timeout','$scope','multipartForm','$location',
   function($timeout,$scope,multipartForm,$location){
     $scope.item={};
     $scope.showForm="True";
+    $scope.date=new Date();
     $scope.submit=function(){
       var uploadUrl="/api/items";
       multipartForm.post(uploadUrl,$scope.item).then(function(){
@@ -22,7 +23,14 @@ app.controller('AddItemCtrl', ['$timeout','$scope','multipartForm','$location',
           $scope.bids={};
           items.get({ id: $routeParams.id }, function(item){
               $scope.item = item;
-
+              $scope.endTime=new Date(item.endBidTime);
+              if(new Date(item.endBidTime) > new Date()){
+                $scope.dateValidity=true;
+              }else{
+                $scope.dateValidity=undefined;
+              }
+              console.log(new Date(item.endBidTime));
+              console.log(new Date());
               var itemBids= $resource('/api/bids/item/:id',
                                       {id:$routeParams.id},
                                       {get:{method:'get',isArray:true}}
@@ -86,6 +94,8 @@ app.controller('AddItemCtrl', ['$timeout','$scope','multipartForm','$location',
       var Items = $resource('/api/items/:id', { id: '@_id' }, {
           update: { method: 'PUT' }
       });
+
+      $scope.date=new Date();
 
       Items.get({ id: $routeParams.id }, function(item){
           $scope.item = item;

@@ -54,7 +54,7 @@ router.get('/user/', function(req, res) {
         newBid.bider=req.user.username,
         newBid.itemID= req.body.itemID,
         newBid.bidPrice= req.body.bidPrice,
-        newBid.bidtime=new Date().toLocaleString();
+        newBid.bidtime=new Date().toLocaleString("en-US");
         newBid.isDeleted='false';
         newBid.save();
         res.json({"status":"success"});
