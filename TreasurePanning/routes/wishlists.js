@@ -21,7 +21,20 @@ router.post('/:id',function(req,res){
 });
 
 router.get('/',function(req,res){
-
-})
+  var wishlists = db.get('wishlists');
+  var collection = db.get('items');
+  wishlists.find({ item_user: req.user.username},function(err, items){
+  if (err) throw err;
+  var itemIDs=items.map(a=>a.itemID);
+  if(itemIDs.length>0){
+      collection.find({ _id:{$in : itemIDs }},function(err, wishItem){
+        if (err) throw err;
+        res.json(wishItem);
+      });
+    }else{
+      res.status(404).end("empty wishlist");
+    }
+  });
+});
 
 module.exports=router;

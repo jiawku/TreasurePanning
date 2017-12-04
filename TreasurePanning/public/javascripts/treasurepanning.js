@@ -41,6 +41,10 @@ app.config(['$routeProvider', function($routeProvider){
           templateUrl: 'partials/item-wishlist.html',
           controller: 'WishlistCtrl'
         })
+        .when('/wishlist',{
+          templateUrl: 'partials/view-wishlist.html',
+          controller: 'ViewWishlistCtrl'
+        })
         .otherwise({
             redirectTo: '/'
           });
@@ -86,3 +90,17 @@ app.controller('WishlistCtrl', ['$scope', '$resource', '$routeParams','$location
            });
        };
     }]);
+
+
+    app.controller('ViewWishlistCtrl', ['$scope', '$resource',
+        function($scope, $resource){
+            var Wishlistitems = $resource('/api/wishlists');
+            Wishlistitems.query(function(wishlistitems){
+              $scope.wishlistitems = wishlistitems;
+
+              },function(){
+                $scope.successMessgae="Wishlist is Empty.";
+              }
+
+            );
+        }]);

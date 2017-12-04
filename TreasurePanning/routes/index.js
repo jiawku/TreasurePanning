@@ -39,15 +39,6 @@ var router=express.Router();
       );
     });
 
-    // router.get('/login', function(req, res) {
-    //     res.render('login', { user : req.user });
-    // });
-
-    // router.post('/login', passport.authenticate('local'), function(req, res) {
-    //
-    //     // res.end('loginSuccess');
-    //     res.redirect('/');
-    // });
 
     router.post('/login', function(req, res, next) {
       passport.authenticate('local', function(err, user, info) {
@@ -73,17 +64,10 @@ var router=express.Router();
     });
 
 
-    // router.get('/logout', function(req, res) {
-    //     req.logout();
-    //     res.redirect('/');
-    // });
-
     router.get('/logout', function(req, res) {
       req.logout();
       res.redirect("/");
-      // res.status(200).json({
-      //   status: 'Bye!'
-      // });
+
     });
 
     router.get('/ping', function(req, res){

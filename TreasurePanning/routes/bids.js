@@ -61,28 +61,4 @@ router.get('/user/', function(req, res) {
     }
 );
 
-
-
-
-// router.get('/:id', function(req, res) {
-//     var collection = db.get('items');
-//     collection.findOne({ _id: req.params.id},function(err, item){
-//         if (err) throw err;
-//       	res.json(item);
-//     });
-// });
-//
-//
-// router.put('/:id', function(req, res){
-//   itemModel.findById(req.params.id, function (err, item) {
-//     if (err) return handleError(err);
-//       item.isDeleted = 'true';
-//       item.save(function (err, deletedItem) {
-//         if (err) return handleError(err);
-//        res.send(deletedItem);
-//     });
-//   });
-// });
-
-
 module.exports=router;
