@@ -39,11 +39,19 @@ app.config(['$routeProvider', function($routeProvider){
         })
         .when('/wishlist/:id',{
           templateUrl: 'partials/item-wishlist.html',
-          controller: 'WishlistCtrl'
+          controller: 'AddWishlistCtrl'
         })
         .when('/wishlist',{
           templateUrl: 'partials/view-wishlist.html',
           controller: 'ViewWishlistCtrl'
+        })
+        .when('/buyingHistory',{
+          templateUrl: 'partials/view-History.html',
+          controller: 'ViewBuyingHistoryCtrl'
+        })
+        .when('/sellingHistory',{
+          templateUrl: 'partials/view-History.html',
+          controller: 'ViewSellingHistoryCtrl'
         })
         .otherwise({
             redirectTo: '/'
@@ -71,36 +79,3 @@ app.controller('ContactQueryCtrl', ['$scope', '$resource', '$location',
 
       };
     }]);
-
-app.controller('WishlistCtrl', ['$scope', '$resource', '$routeParams','$location','$timeout',
-    function($scope, $resource, $routeParams,$location,$timeout){
-        var items = $resource('/api/items/:id');
-
-        items.get({ id: $routeParams.id }, function(item){
-            $scope.item = item;
-        });
-
-        $scope.save = function(){
-           var WishItems = $resource('/api/wishlists/:id',{id:$routeParams.id});
-           WishItems.save($scope.item, function(){
-             $scope.successMessgae="Item is added to your wishlist.";
-             $timeout(function () {
-               $location.path("/");
-             }, 2000);
-           });
-       };
-    }]);
-
-
-    app.controller('ViewWishlistCtrl', ['$scope', '$resource',
-        function($scope, $resource){
-            var Wishlistitems = $resource('/api/wishlists');
-            Wishlistitems.query(function(wishlistitems){
-              $scope.wishlistitems = wishlistitems;
-
-              },function(){
-                $scope.successMessgae="Wishlist is Empty.";
-              }
-
-            );
-        }]);

@@ -1,0 +1,17 @@
+<div class="alert alert-info" role="alert" ng-if="successMessgae"><p style="font-size:200%; text-align:center;">{{successMessgae}}</p></div>
+<div class="viewitemform">
+<ul>
+  <li ng-repeat="item in history">
+    <div class="gallery">
+      <a href="/#/item/{{item._id}}">
+      <img ng-src="/api/items/image/{{item._id}}" alt="Photo of {{item.name}}">
+     </a>
+      <div class="desc">
+        <h5>{{item.name}}</h5>
+        <hr>
+        <p>Minimum Bid: {{item.startPrice}}</p>
+      </div>
+    </div>
+  </li>
+</ul>
+</div>

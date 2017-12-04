@@ -29,8 +29,6 @@ app.controller('AddItemCtrl', ['$timeout','$scope','multipartForm','$location',
               }else{
                 $scope.dateValidity=undefined;
               }
-              console.log(new Date(item.endBidTime));
-              console.log(new Date());
               var itemBids= $resource('/api/bids/item/:id',
                                       {id:$routeParams.id},
                                       {get:{method:'get',isArray:true}}
