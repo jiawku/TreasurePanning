@@ -49,6 +49,14 @@ app.config(['$routeProvider', function($routeProvider){
           templateUrl: 'partials/wishlist-delete.html',
           controller: 'DeleteWishlistCtrl'
         })
+        .when('/buyingHistory',{
+          templateUrl: 'partials/view-History.html',
+          controller: 'ViewBuyingHistoryCtrl'
+        })
+        .when('/sellingHistory',{
+          templateUrl: 'partials/view-History.html',
+          controller: 'ViewSellingHistoryCtrl'
+        })
         .otherwise({
             redirectTo: '/'
           });
@@ -75,36 +83,3 @@ app.controller('ContactQueryCtrl', ['$scope', '$resource', '$location',
 
       };
     }]);
-
-app.controller('WishlistCtrl', ['$scope', '$resource', '$routeParams','$location','$timeout',
-    function($scope, $resource, $routeParams,$location,$timeout){
-        var items = $resource('/api/items/:id');
-
-        items.get({ id: $routeParams.id }, function(item){
-            $scope.item = item;
-        });
-
-        $scope.save = function(){
-           var WishItems = $resource('/api/wishlists/:id',{id:$routeParams.id});
-           WishItems.save($scope.item, function(){
-             $scope.successMessgae="Item is added to your wishlist.";
-             $timeout(function () {
-               $location.path("/");
-             }, 2000);
-           });
-       };
-    }]);
-
-
-
-
-  app.controller('DeleteWishlistCtrl', ['$scope', '$resource', '$location', '$routeParams',
-        function($scope, $resource, $location, $routeParams){
-
-          var wishItem= $resource('/api/wishlists/item/:id');
-
-          wishItem.get({id:$routeParams.id},function(myitem){
-            $scope.myitem=myitem;
-
-          });
-        }]);
