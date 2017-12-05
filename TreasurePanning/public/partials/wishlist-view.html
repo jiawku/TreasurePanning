@@ -1,0 +1,32 @@
+<div class="alert alert-info" role="alert" ng-if="successMessgae"><p style="font-size:200%; text-align:center;">{{successMessgae}}</p></div>
+ <div ng-if="showWishForm">
+
+  <table class="table table-hover table-dark">
+        <tr>
+          <th scope="col">Image</th>
+          <th scope="col">Name</th>
+          <th scope="col">Category</th>
+          <th scope="col">Description</th>
+          <th scope="col">Minimum Bid Amount</th>
+          <th scope="col">Bid End Time</th>
+          <th scope="col">Action</th>
+        </tr>
+        <tr ng-repeat="wishItem in wishlistitems">
+          <td>
+            <a href="/#/item/{{wishItem._id}}">
+             <img ng-src="/api/items/image/{{wishItem._id}}" alt="Photo of {{wishItem.name}} width="180px" height="180px"">
+           </a>
+          </td>
+          <td>{{wishItem.name}}</td>
+          <td>{{wishItem.category}}</td>
+          <td>{{wishItem.description}}</td>
+          <td>{{wishItem.startPrice}}</td>
+          <td>{{wishItem.endBidTime}}</td>
+          <td>
+            <a href="/#/wishlist/delete/{{wishItem._id}}">
+              <i class="glyphicon glyphicon-remove"></i>
+            </a>
+          </td>
+        </tr>
+    </table>
+</div>

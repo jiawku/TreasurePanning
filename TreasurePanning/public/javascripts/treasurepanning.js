@@ -42,8 +42,12 @@ app.config(['$routeProvider', function($routeProvider){
           controller: 'WishlistCtrl'
         })
         .when('/wishlist',{
-          templateUrl: 'partials/view-wishlist.html',
+          templateUrl: 'partials/wishlist-view.html',
           controller: 'ViewWishlistCtrl'
+        })
+        .when('/wishlist/delete/:id',{
+          templateUrl: 'partials/wishlist-delete.html',
+          controller: 'DeleteWishlistCtrl'
         })
         .otherwise({
             redirectTo: '/'
@@ -92,15 +96,27 @@ app.controller('WishlistCtrl', ['$scope', '$resource', '$routeParams','$location
     }]);
 
 
-    app.controller('ViewWishlistCtrl', ['$scope', '$resource',
-        function($scope, $resource){
-            var Wishlistitems = $resource('/api/wishlists');
+    app.controller('ViewWishlistCtrl', ['$scope', '$resource','$location', '$routeParams',
+        function($scope, $resource,$location, $routeParams){
+            $scope.showWishForm="True";
+            var Wishlistitems = $resource('/api/wishlists',{get:{method:'get',isArray:true}});
             Wishlistitems.query(function(wishlistitems){
               $scope.wishlistitems = wishlistitems;
 
               },function(){
                 $scope.successMessgae="Wishlist is Empty.";
+                $scope.showWishForm=undefined;
               }
-
             );
+        }]);
+
+  app.controller('DeleteWishlistCtrl', ['$scope', '$resource', '$location', '$routeParams',
+        function($scope, $resource, $location, $routeParams){
+
+          var wishItem= $resource('/api/wishlists/item/:id');
+
+          wishItem.get({id:$routeParams.id},function(myitem){
+            $scope.myitem=myitem;
+
+          });
         }]);

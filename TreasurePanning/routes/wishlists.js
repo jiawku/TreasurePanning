@@ -20,6 +20,7 @@ router.post('/:id',function(req,res){
   });
 });
 
+
 router.get('/',function(req,res){
   var wishlists = db.get('wishlists');
   var collection = db.get('items');
@@ -36,5 +37,15 @@ router.get('/',function(req,res){
     }
   });
 });
+
+
+router.get('/item/:id', function(req, res) {
+    var collection = db.get('wishlists');
+    collection.findOne({itemID : req.params.id}, function(err, myresults){
+        if (err) throw err;
+      	res.json(myresults);
+    });
+});
+
 
 module.exports=router;

@@ -1,0 +1,34 @@
+<div class="alert alert-success" role="alert" ng-if="successMessgae"><p style="font-size:200%; text-align:center;">{{successMessgae}}</p></div>
+<div class="listform">
+<h1>Remove Item</h1>
+<form  name="wishlistformDelete" >
+<p>
+    Are you sure you want to remove this item from wishlist?
+</p>
+<img  ng-src="/api/items/image/{{myitem._id}}" alt="Photo of {{myitem.name}}" width="350px" height="400px">
+<div class="form-group">
+    <label>Name: </label>
+    {{myitem.name}}
+</div>
+<div class="form-group">
+    <label>Description: </label>
+    {{myitem.description}}
+</div>
+<div class="form-group">
+    <label>Category: </label>
+    {{myitem.category}}
+</div>
+<div class="form-group">
+    <label>Minimum Bid Amount: </label>
+    {{myitem.startPrice}}
+</div>
+<div class="form-group">
+    <label>Bid End Time: </label>
+    {{myitem.endBidTime}}
+</div>
+<div class="form-group">
+  <input type="button" class="btn btn-primary" value="Remove Item" ng-click="delete()"></input>
+  <a class="btn btn-default" href="/#/wishlist">Back</a>
+</div>
+</form>
+</div>
