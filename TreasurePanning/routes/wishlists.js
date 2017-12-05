@@ -3,6 +3,7 @@ var router = express.Router();
 var path = require('path');
 var monk = require('monk');
 var db = monk('root:root@ds243085.mlab.com:43085/treasurepanning');
+var ObjectId = require('mongodb').ObjectID;
 
 router.post('/:id',function(req,res){
 
@@ -41,8 +42,10 @@ router.get('/',function(req,res){
 
 router.get('/item/:id', function(req, res) {
     var collection = db.get('wishlists');
-    collection.findOne({itemID : req.params.id}, function(err, myresults){
+    console.log(req.params.id);
+    collection.findOne({itemID : new ObjectId(req.params.id)}, function(err, myresults){
         if (err) throw err;
+        console.log(myresults);
       	res.json(myresults);
     });
 });

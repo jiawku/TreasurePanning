@@ -96,19 +96,7 @@ app.controller('WishlistCtrl', ['$scope', '$resource', '$routeParams','$location
     }]);
 
 
-    app.controller('ViewWishlistCtrl', ['$scope', '$resource','$location', '$routeParams',
-        function($scope, $resource,$location, $routeParams){
-            $scope.showWishForm="True";
-            var Wishlistitems = $resource('/api/wishlists',{get:{method:'get',isArray:true}});
-            Wishlistitems.query(function(wishlistitems){
-              $scope.wishlistitems = wishlistitems;
 
-              },function(){
-                $scope.successMessgae="Wishlist is Empty.";
-                $scope.showWishForm=undefined;
-              }
-            );
-        }]);
 
   app.controller('DeleteWishlistCtrl', ['$scope', '$resource', '$location', '$routeParams',
         function($scope, $resource, $location, $routeParams){

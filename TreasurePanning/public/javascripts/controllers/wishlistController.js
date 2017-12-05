@@ -17,16 +17,30 @@ app.controller('AddWishlistCtrl', ['$scope', '$resource', '$routeParams','$locat
        };
     }]);
 
+    //
+    // app.controller('ViewWishlistCtrl', ['$scope', '$resource',
+    //     function($scope, $resource){
+    //         var Wishlistitems = $resource('/api/wishlists');
+    //         Wishlistitems.query(function(wishlistitems){
+    //           $scope.wishlistitems = wishlistitems;
+    //
+    //           },function(){
+    //             $scope.successMessgae="Wishlist is Empty.";
+    //           }
+    //
+    //         );
+    //     }]);
 
-    app.controller('ViewWishlistCtrl', ['$scope', '$resource',
-        function($scope, $resource){
-            var Wishlistitems = $resource('/api/wishlists');
-            Wishlistitems.query(function(wishlistitems){
-              $scope.wishlistitems = wishlistitems;
+        app.controller('ViewWishlistCtrl', ['$scope', '$resource','$location', '$routeParams',
+            function($scope, $resource,$location, $routeParams){
+                $scope.showWishForm="True";
+                var Wishlistitems = $resource('/api/wishlists',{get:{method:'get',isArray:true}});
+                Wishlistitems.query(function(wishlistitems){
+                  $scope.wishlistitems = wishlistitems;
 
-              },function(){
-                $scope.successMessgae="Wishlist is Empty.";
-              }
-
-            );
-        }]);
+                  },function(){
+                    $scope.successMessgae="Wishlist is Empty.";
+                    $scope.showWishForm=undefined;
+                  }
+                );
+            }]);
