@@ -16,6 +16,7 @@ var items = require('./routes/items');
 var bids = require('./routes/bids');
 var queries = require('./routes/queries');
 var wishlists = require('./routes/wishlists');
+var history = require('./routes/history');
 
 var app = express();
 
@@ -44,7 +45,7 @@ app.use('/api/items', items);
 app.use('/api/bids', bids);
 app.use('/api/queries', queries);
 app.use('/api/wishlists',wishlists);
-
+app.use('/api/history',history);
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   var err = new Error('Not Found');

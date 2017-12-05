@@ -2,6 +2,7 @@ app.controller('AddItemCtrl', ['$timeout','$scope','multipartForm','$location',
   function($timeout,$scope,multipartForm,$location){
     $scope.item={};
     $scope.showForm="True";
+    $scope.date=new Date();
     $scope.submit=function(){
       var uploadUrl="/api/items";
       multipartForm.post(uploadUrl,$scope.item).then(function(){
@@ -16,24 +17,31 @@ app.controller('AddItemCtrl', ['$timeout','$scope','multipartForm','$location',
     };
   }]);
 
-  app.controller('ListItemCtrl', ['$scope', '$resource', '$routeParams',
-      function($scope, $resource, $routeParams){
+  app.controller('ListItemCtrl', ['$scope', '$resource', '$routeParams','$route',
+      function($scope, $resource, $routeParams,$route){
           var items = $resource('/api/items/:id');
           $scope.bids={};
           items.get({ id: $routeParams.id }, function(item){
               $scope.item = item;
+              $scope.endTime=new Date(item.endBidTime);
+              if(new Date(item.endBidTime) > new Date()){
+                $scope.dateValidity=true;
+              }else{
+                $scope.dateValidity=undefined;
+              }
+              var itemBids= $resource('/api/bids/item/:id',
+                                      {id:$routeParams.id},
+                                      {get:{method:'get',isArray:true}}
+                                     );
+
+              itemBids.get({id:$routeParams.id},function(bids){
+                $scope.bids=bids;
+                $scope.maxBid = Math.max.apply(Math,$scope.bids.map(function(bid){return bid.bidPrice;}));
+                if($scope.maxBid<$scope.item.startPrice){$scope.maxBid=$scope.item.startPrice;}
+              });
           });
 
-          var itemBids= $resource('/api/bids/item/:id',
-                                  {id:$routeParams.id},
-                                  {get:{method:'get',isArray:true}}
-                                 );
 
-          itemBids.get({id:$routeParams.id},function(bids){
-            $scope.bids=bids;
-            $scope.maxBid = Math.max.apply(Math,$scope.bids.map(function(bid){return bid.bidPrice;}));
-
-          });
 
 
           // $scope.max = Math.max.apply(Math,$scope.bids.map(function(bid){return bid.bidPrice;}));
@@ -45,6 +53,13 @@ app.controller('AddItemCtrl', ['$timeout','$scope','multipartForm','$location',
               bid.save($scope.newBid, function(res){
                   $scope.bidMessage="Bid is added successfully.";
                   $scope.bidStatus="alert-success";
+                  $scope.newBid={};
+                  $scope.bidForm.$setPristine();
+                  $scope.bidForm.$setUntouched();
+                  $route.reload();
+              },function(err){
+                  $scope.bidMessage="Biding error.Please login before biding.";
+                  $scope.bidStatus="alert-danger";
                   $scope.newBid={};
                   $scope.bidForm.$setPristine();
                   $scope.bidForm.$setUntouched();
@@ -77,6 +92,8 @@ app.controller('AddItemCtrl', ['$timeout','$scope','multipartForm','$location',
       var Items = $resource('/api/items/:id', { id: '@_id' }, {
           update: { method: 'PUT' }
       });
+
+      $scope.date=new Date();
 
       Items.get({ id: $routeParams.id }, function(item){
           $scope.item = item;

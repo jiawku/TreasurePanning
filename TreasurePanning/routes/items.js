@@ -46,12 +46,12 @@ router.get('/', function(req, res) {
 
  router.post('/',upload.single('image'),function(req, res){
         var newItem = new itemModel();
-        var bidenddate = new Date(req.body.endBidTime);
+        var bidenddate = new Date(new Date(req.body.endBidTime).getTime()+60*60*24*1000-1000);
         newItem.name = req.body.name;
         newItem.description = req.body.description;
         newItem.category=req.body.category;
         newItem.startPrice=req.body.startPrice;
-        newItem.endBidTime=bidenddate.toLocaleString();
+        newItem.endBidTime=bidenddate.toLocaleString("en-US");
         newItem.img.contentType=req.file.mimetype;
         newItem.img.data=fs.readFileSync(req.file.path);
         newItem.addTimeStamp=new Date().toLocaleString();

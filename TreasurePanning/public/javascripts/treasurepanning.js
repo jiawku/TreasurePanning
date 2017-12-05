@@ -39,7 +39,7 @@ app.config(['$routeProvider', function($routeProvider){
         })
         .when('/wishlist/:id',{
           templateUrl: 'partials/item-wishlist.html',
-          controller: 'WishlistCtrl'
+          controller: 'AddWishlistCtrl'
         })
         .when('/wishlist',{
           templateUrl: 'partials/wishlist-view.html',
