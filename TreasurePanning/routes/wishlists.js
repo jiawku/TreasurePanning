@@ -3,6 +3,7 @@ var router = express.Router();
 var path = require('path');
 var monk = require('monk');
 var db = monk('root:root@ds243085.mlab.com:43085/treasurepanning');
+var ObjectId = require('mongodb').ObjectID;
 
 router.post('/:id',function(req,res){
 
@@ -28,9 +29,15 @@ router.get('/',function(req,res){
   if (err) throw err;
   var itemIDs=items.map(a=>a.itemID);
   if(itemIDs.length>0){
-      collection.find({ _id:{$in : itemIDs }},function(err, wishItem){
+      collection.find({ _id:{$in : itemIDs },isDeleted:'false',status:'open'},function(err, wishItem){
         if (err) throw err;
-        res.json(wishItem);
+        if (wishItem.length==0){
+          res.status(404).end("empty wishlist");
+        }
+        else{
+          res.json(wishItem);
+        }
+
       });
     }else{
       res.status(404).end("empty wishlist");
@@ -39,13 +46,24 @@ router.get('/',function(req,res){
 });
 
 
-router.get('/item/:id', function(req, res) {
-    var collection = db.get('wishlists');
-    collection.findOne({itemID : req.params.id}, function(err, myresults){
-        if (err) throw err;
-      	res.json(myresults);
+router.get('/:id', function(req, res) {
+    var wishCollection = db.get('wishlists');
+    var collection = db.get('items');
+    wishCollection.findOne({itemID : new ObjectId(req.params.id),item_user: req.user.username}, function(err, myresult){
+      if (err) throw err;
+       collection.findOne({_id: myresult.itemID},function(err, myItem){
+          if (err) throw err;
+          res.json(myItem);
+        });
     });
 });
 
+router.delete('/:id', function(req, res){
+    var collection = db.get('wishlists');
+    collection.remove({itemID : new ObjectId(req.params.id),item_user: req.user.username}, function(err, data){
+        if (err) throw err;
+        res.json(data);
+    });
+});
 
 module.exports=router;

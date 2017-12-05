@@ -43,10 +43,6 @@ app.controller('AddItemCtrl', ['$timeout','$scope','multipartForm','$location',
 
 
 
-
-          // $scope.max = Math.max.apply(Math,$scope.bids.map(function(bid){return bid.bidPrice;}));
-          // console.log($scope.max);
-
           $scope.addBid = function(){
               $scope.newBid.itemID=$routeParams.id;
               var bid = $resource('/api/bids');

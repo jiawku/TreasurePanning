@@ -5,26 +5,26 @@
 <p>
     Are you sure you want to remove this item from wishlist?
 </p>
-<img  ng-src="/api/items/image/{{myitem._id}}" alt="Photo of {{myitem.name}}" width="350px" height="400px">
+<img  ng-src="/api/items/image/{{mywishitem._id}}" alt="Photo of {{mywishitem.name}}" width="350px" height="400px">
 <div class="form-group">
     <label>Name: </label>
-    {{myitem.name}}
+    {{mywishitem.name}}
 </div>
 <div class="form-group">
     <label>Description: </label>
-    {{myitem.description}}
+    {{mywishitem.description}}
 </div>
 <div class="form-group">
     <label>Category: </label>
-    {{myitem.category}}
+    {{mywishitem.category}}
 </div>
 <div class="form-group">
     <label>Minimum Bid Amount: </label>
-    {{myitem.startPrice}}
+    {{mywishitem.startPrice}}
 </div>
 <div class="form-group">
     <label>Bid End Time: </label>
-    {{myitem.endBidTime}}
+    {{mywishitem.endBidTime}}
 </div>
 <div class="form-group">
   <input type="button" class="btn btn-primary" value="Remove Item" ng-click="delete()"></input>
