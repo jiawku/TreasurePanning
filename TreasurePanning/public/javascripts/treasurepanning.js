@@ -4,62 +4,80 @@ app.config(['$routeProvider', function($routeProvider){
     $routeProvider
         .when('/', {
             templateUrl: 'partials/home.html',
-            controller: 'HomeCtrl'
+            controller: 'HomeCtrl',
+            access: {restricted: false}
         })
         .when('/add-item', {
             templateUrl: 'partials/item-form.html',
-            controller: 'AddItemCtrl'
+            controller: 'AddItemCtrl',
+            access: {restricted: true}
         })
         .when('/item/:id', {
             templateUrl: 'partials/item-view.html',
-            controller: 'ListItemCtrl'
+            controller: 'ListItemCtrl',
+            access: {restricted:false}
         })
         .when('/item/delete/:id', {
             templateUrl: 'partials/item-delete.html',
-            controller: 'DeleteItemCtrl'
+            controller: 'DeleteItemCtrl',
+            access: {restricted: true, admin: true}
         })
         .when('/contact-us', {
             templateUrl: 'partials/contact.html',
-            controller: 'ContactQueryCtrl'
+            controller: 'ContactQueryCtrl',
+            access: {restricted:false}
         })
         .when('/contact-msg', {
             templateUrl: 'partials/view-messages.html',
-            controller: 'ContactMsgCtrl'
+            controller: 'ContactMsgCtrl',
+            access: {restricted: true, admin: true}
         })
         .when('/about-us', {
-            templateUrl: 'partials/about.html'
+            templateUrl: 'partials/about.html',
+            access: {restricted:false}
         })
         .when('/login',{
           templateUrl: 'partials/login.html',
-          controller:'LoginController'
+          controller:'LoginController',
+          access: {restricted:false}
         })
         .when('/register',{
           templateUrl: 'partials/register.html',
-          controller:'RegisterController'
+          controller:'RegisterController',
+          access: {restricted:false}
         })
         .when('/item/edit/:id',{
           templateUrl: 'partials/item-edit.html',
-          controller: 'EditItemCtrl'
+          controller: 'EditItemCtrl',
+          access: {restricted: true, admin: true}
         })
         .when('/wishlist/:id',{
           templateUrl: 'partials/item-wishlist.html',
-          controller: 'AddWishlistCtrl'
+          controller: 'AddWishlistCtrl',
+          access: {restricted: true}
         })
         .when('/wishlist',{
           templateUrl: 'partials/wishlist-view.html',
-          controller: 'ViewWishlistCtrl'
+          controller: 'ViewWishlistCtrl',
+          access: {restricted: true}
         })
         .when('/wishlist/delete/:id',{
           templateUrl: 'partials/wishlist-delete.html',
-          controller: 'DeleteWishlistCtrl'
+          controller: 'DeleteWishlistCtrl',
+          access: {restricted: true}
         })
         .when('/buyingHistory',{
           templateUrl: 'partials/view-History.html',
-          controller: 'ViewBuyingHistoryCtrl'
+          controller: 'ViewBuyingHistoryCtrl',
+          access: {restricted: true}
         })
         .when('/sellingHistory',{
           templateUrl: 'partials/view-History.html',
-          controller: 'ViewSellingHistoryCtrl'
+          controller: 'ViewSellingHistoryCtrl',
+          access: {restricted: true}
+        })
+        .when('/logout',{
+          access: {restricted: true}
         })
         .otherwise({
             redirectTo: '/'

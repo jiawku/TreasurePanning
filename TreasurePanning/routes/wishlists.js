@@ -59,6 +59,7 @@ router.get('/',function(req,res){
 
 
 router.get('/:id', function(req, res) {
+  if(req.user){
   var wishCollection = db.get('wishlists');
   var collection = db.get('items');
   wishCollection.findOne({
@@ -72,7 +73,7 @@ router.get('/:id', function(req, res) {
       if (err) throw err;
       res.json(myItem);
     });
-  }
+  })}
   else{
     res.status(404).end("noSession");
   }

@@ -38,10 +38,16 @@ var db = monk('root:root@ds243085.mlab.com:43085/treasurepanning');
 
 router.get('/', function(req, res) {
     var collection = db.get('items');
+    if(req.user.isAdmin){
+      collection.find({}, function(err, items){
+          if (err) throw err;
+        	res.json(items);
+      });
+    }else{
     collection.find({isDeleted:'false',status:'open'}, function(err, items){
         if (err) throw err;
       	res.json(items);
-    });
+    });}
 });
 
  router.post('/',upload.single('image'),function(req, res){
