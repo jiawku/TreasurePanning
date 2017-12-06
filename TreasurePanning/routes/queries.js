@@ -14,4 +14,19 @@ router.post('/', function(req, res){
         res.json(query);
     });
 });
+
+router.get('/', function(req, res) {
+    var collection = db.get('queries');
+    collection.find({},function(err, queries){
+        if (err) throw err;
+        if (queries.length==0){
+          res.status(404).end("empty messages");
+        }
+        else{
+          res.json(queries);
+        }
+
+    });
+});
+
 module.exports = router;

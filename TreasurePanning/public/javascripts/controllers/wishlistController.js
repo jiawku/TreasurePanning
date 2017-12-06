@@ -32,33 +32,32 @@ app.controller('WishlistCtrl', ['$scope', '$resource', '$routeParams','$location
   }]);
 
 
-        app.controller('ViewWishlistCtrl', ['$scope', '$resource','$location', '$routeParams',
-            function($scope, $resource,$location, $routeParams){
-                $scope.showWishForm="True";
-                var Wishlistitems = $resource('/api/wishlists',{get:{method:'get',isArray:true}});
-                Wishlistitems.query(function(wishlistitems){
-                  $scope.wishlistitems = wishlistitems;
-                  },function(){
-                    $scope.successMessgae="Wishlist is Empty.";
-                    $scope.showWishForm=undefined;
-                  }
-                );
-            }]);
-
-      app.controller('DeleteWishlistCtrl', ['$scope', '$resource', '$location', '$routeParams','$timeout',
-            function($scope, $resource, $location, $routeParams,$timeout){
-              var wishItem= $resource('/api/wishlists/:id');
-              wishItem.get({id:$routeParams.id},function(data){
-              $scope.mywishitem=data;
-
-                $scope.delete = function(){
-                $scope.successMessgae="Item is removed successfully from your wishlist.";
-                wishItem.delete({ id: $routeParams.id }, function(){
-                  $timeout(function () {
-                    $location.path("/wishlist");
-                    $window.location.reload(true);
-                  }, 2000);
-               });
+  app.controller('ViewWishlistCtrl', ['$scope', '$resource','$location', '$routeParams',
+    function($scope, $resource,$location, $routeParams){
+        $scope.showWishForm="True";
+        var Wishlistitems = $resource('/api/wishlists',{get:{method:'get',isArray:true}});
+        Wishlistitems.query(function(wishlistitems){
+            $scope.wishlistitems = wishlistitems;
+            },function(){
+              $scope.successMessgae="Wishlist is Empty.";
+              $scope.showWishForm=undefined;
               }
-          });
-      }]);
+          );
+  }]);
+
+  app.controller('DeleteWishlistCtrl', ['$scope', '$resource', '$location', '$routeParams','$timeout','$window',
+    function($scope, $resource, $location, $routeParams,$timeout,$window){
+        var wishItem= $resource('/api/wishlists/:id');
+        wishItem.get({id:$routeParams.id},function(data){
+          $scope.mywishitem=data;
+          $scope.delete = function(){
+            $scope.successMessgae="Item is removed successfully from your wishlist.";
+            wishItem.delete({ id: $routeParams.id }, function(){
+            $timeout(function () {
+              $location.path("/wishlist");
+              $window.location.reload(true);
+            }, 2000);
+         });
+        }
+    });
+  }]);

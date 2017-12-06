@@ -1,0 +1,15 @@
+<div class="alert alert-info" role="alert" ng-if="successMessgae1"><p style="font-size:200%; text-align:center;">{{successMessgae1}}</p></div>
+ <div ng-if="viewMsgForm">
+  <table class="table table-hover table-dark">
+        <tr>
+          <th scope="col">Name</th>
+          <th scope="col">Email</th>
+          <th scope="col">Message</th>
+        </tr>
+        <tr ng-repeat="msg in messages">
+          <td>{{msg.name}}</td>
+          <td>{{msg.email}}</td>
+          <td>{{msg.message}}</td>
+        </tr>
+    </table>
+</div>

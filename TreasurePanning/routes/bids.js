@@ -41,24 +41,34 @@ router.get('/item/:id', function(req, res) {
 });
 
 router.get('/user/', function(req, res) {
+  if(req.user){
     var collection = db.get('bids');
     collection.find({bider: req.user.username,"isDeleted":"false"}, function(err, bids){
         if (err) throw err;
-      	res.json(bids);
+        res.json(bids);
     });
+  }
+  else{
+    res.status(404).end("noSession");
+  }
+
 });
 
  router.post('/',function(req, res){
-        var newBid = new bidModel();
+   if(req.user){
+     var newBid = new bidModel();
 
-        newBid.bider=req.user.username,
-        newBid.itemID= req.body.itemID,
-        newBid.bidPrice= req.body.bidPrice,
-        newBid.bidtime=new Date().toLocaleString("en-US");
-        newBid.isDeleted='false';
-        newBid.save();
-        res.json({"status":"success"});
-    }
-);
+     newBid.bider=req.user.username,
+     newBid.itemID= req.body.itemID,
+     newBid.bidPrice= req.body.bidPrice,
+     newBid.bidtime=new Date().toLocaleString("en-US");
+     newBid.isDeleted='false';
+     newBid.save();
+     res.json({"status":"success"});
+   }
+   else{
+    res.status(404).end("noSession");
+   }
+});
 
 module.exports=router;

@@ -1,5 +1,5 @@
-app.controller('AddItemCtrl', ['$timeout','$scope','multipartForm','$location',
-  function($timeout,$scope,multipartForm,$location){
+app.controller('AddItemCtrl', ['$timeout','$scope','multipartForm','$location','$window',
+  function($timeout,$scope,multipartForm,$location,$window){
     $scope.item={};
     $scope.showForm="True";
     $scope.date=new Date();

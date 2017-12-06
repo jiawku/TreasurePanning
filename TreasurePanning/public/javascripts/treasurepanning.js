@@ -22,6 +22,10 @@ app.config(['$routeProvider', function($routeProvider){
             templateUrl: 'partials/contact.html',
             controller: 'ContactQueryCtrl'
         })
+        .when('/contact-msg', {
+            templateUrl: 'partials/view-messages.html',
+            controller: 'ContactMsgCtrl'
+        })
         .when('/about-us', {
             templateUrl: 'partials/about.html'
         })
@@ -72,14 +76,33 @@ app.controller('HomeCtrl', ['$scope', '$resource',
       });
     }]);
 
-app.controller('ContactQueryCtrl', ['$scope', '$resource', '$location',
-  function($scope, $resource, $location){
+app.controller('ContactQueryCtrl', ['$timeout','$scope', '$resource', '$location',
+  function($timeout,$scope, $resource, $location){
     $scope.save = function(){
       var Queries = $resource('/api/queries');
       Queries.save($scope.query, function(){
         $scope.successMessgae="Thanks! Your response has been recorded. Our team will contact you within 1-2 days.";
         $scope.query={};
+        $timeout(function () {
+          $location.path("/");
+        }, 2000);
       });
 
       };
     }]);
+
+
+app.controller('ContactMsgCtrl', ['$scope', '$resource',
+  function($scope, $resource){
+    $scope.viewMsgForm=true;
+    var Messages = $resource('/api/queries');
+    Messages.query(function(messages){
+      $scope.messages = messages;
+    },function(){
+      $scope.successMessgae1="Currently there are no messages.";
+      $scope.viewMsgForm=undefined;
+      $timeout(function () {
+        $location.path("/");
+      }, 2000);
+      });
+}]);

@@ -9,6 +9,7 @@ var db = monk('root:root@ds243085.mlab.com:43085/treasurepanning');
 
 
 router.get('/buying/', function(req, res) {
+  if(req.user){
     var collection = db.get('bids');
     collection.find({bider: req.user.username,"isDeleted":"false"}, function(err, bids){
         if (err) throw err;
@@ -28,14 +29,23 @@ router.get('/buying/', function(req, res) {
             res.status(404).end("empty buyingHistory");
           }
         });
-    });
+  }
+  else{
+  res.status(404).end("noSession");
+  }
+});
 
 router.get('/selling/', function(req, res) {
+  if(req.user){
     var collection = db.get('items');
     collection.find({seller: req.user.username,"isDeleted":"false"}, function(err, items){
         if (err) throw err;
-      	res.json(items);
+        res.json(items);
     });
+  }
+  else{
+    res.status(404).end("noSession");
+  }  
 });
 
 module.exports=router;
