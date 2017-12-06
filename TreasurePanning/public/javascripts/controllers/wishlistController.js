@@ -71,8 +71,8 @@ app.controller('WishlistCtrl', ['$scope', '$resource', '$routeParams','$location
                 );
             }]);
 
-      app.controller('DeleteWishlistCtrl', ['$scope', '$resource', '$location', '$routeParams','$timeout',
-            function($scope, $resource, $location, $routeParams,$timeout){
+      app.controller('DeleteWishlistCtrl', ['$scope', '$resource', '$location', '$routeParams','$timeout','$window',
+            function($scope, $resource, $location, $routeParams,$timeout,$window){
               var wishItem= $resource('/api/wishlists/:id');
               var currentPrice = $resource('/api/bids/itemCurrentBid/:id');
               wishItem.get({id:$routeParams.id},function(data){
