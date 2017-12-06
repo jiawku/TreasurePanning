@@ -18,9 +18,9 @@ app.controller('AddItemCtrl', ['$window', '$timeout', '$scope', 'multipartForm',
   }
 ]);
 
-app.controller('ListItemCtrl', ['$scope', '$resource', '$routeParams', '$route','AuthService',
-  function($scope, $resource, $routeParams, $route,AuthService) {
-    $scope.isAdmin=AuthService.isAdmin();
+app.controller('ListItemCtrl', ['$scope', '$resource', '$routeParams', '$route', '$location', 'AuthService',
+  function($scope, $resource, $routeParams, $route, $location, AuthService) {
+    $scope.isAdmin = AuthService.isAdmin();
     var items = $resource('/api/items/:id');
     var currentPrice = $resource('/api/bids/itemCurrentBid/:id');
     $scope.bids = {};
@@ -59,10 +59,9 @@ app.controller('ListItemCtrl', ['$scope', '$resource', '$routeParams', '$route',
           $scope.maxBid = $scope.item.startPrice;
         }
       });
+    }, function(err) {
+      $location.path("/");
     });
-
-
-
     $scope.addBid = function() {
       $scope.newBid.itemID = $routeParams.id;
       var bid = $resource('/api/bids');
@@ -81,7 +80,6 @@ app.controller('ListItemCtrl', ['$scope', '$resource', '$routeParams', '$route',
         } else {
           $scope.bidMessage = "Biding Server Error";
         }
-
         $scope.bidStatus = "alert-danger";
         $scope.newBid = {};
         $scope.bidForm.$setPristine();

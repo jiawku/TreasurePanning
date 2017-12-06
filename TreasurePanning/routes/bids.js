@@ -43,7 +43,8 @@ router.get('/itemCurrentBid/:id', function(req, res) {
       itemCollecion.findOne({
         _id: req.params.id
       }, function(err, item) {
-        if (err) {
+        console.log(item);
+        if (err || item == null) {
           res.status(404).json("item not found");
         } else {
           res.json({
