@@ -3,6 +3,23 @@
    <h1>Items Directory</h1>
    <label>Search: </label>
    <input ng-model="query" placeholder="Search for items" autofocus>
+   <label>Category:
+   <select id="itemcategory"class="form-control" ng-model="query1" required>
+     <option value=''>Select</option>
+     <option value="Apparels">Apparels</option>
+     <option value="Accessories">Accessories</option>
+     <option value="Antiques">Antiques</option>
+     <option value="Electronics">Electronics</option>
+     <option value="Footwear">Footwear</option>
+     <option value="Furniture">Furniture</option>
+     <option value="Hardware Equipments">Hardware Equipments</option>
+     <option value="Jewelry">Jewelry</option>
+     <option value="Musical Instruments">Musical Instruments</option>
+     <option value="Sports Equipments">Sports Equipments</option>
+     <option value="Vehicle">Vehicle</option>
+     <option value="Others">Others</option>
+   </select>
+   </label>
    <label class="formgroup">by:
      <select ng-model="itemOrders">
        <option value="name">Name</option>
@@ -21,7 +38,7 @@
  </div>
  <div class="col-md-12">
 <ul>
-  <li dir-paginate="item in items | itemsPerPage:10 |filter:query | orderBy: itemOrders:direction">
+  <li dir-paginate="item in items | itemsPerPage:10 |filter : query | filter: query1 | orderBy: itemOrders:direction">
     <div class="gallery">
       <a href="/#/item/{{item._id}}">
       <img ng-src="/api/items/image/{{item._id}}" alt="Photo of {{item.name}}">

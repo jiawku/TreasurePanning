@@ -45,23 +45,28 @@ router.get('/', function(req, res) {
 });
 
  router.post('/',upload.single('image'),function(req, res){
-        var newItem = new itemModel();
-        var bidenddate = new Date(new Date(req.body.endBidTime).getTime()+60*60*24*1000-1000);
-        newItem.name = req.body.name;
-        newItem.description = req.body.description;
-        newItem.category=req.body.category;
-        newItem.startPrice=req.body.startPrice;
-        newItem.endBidTime=bidenddate.toLocaleString("en-US");
-        newItem.img.contentType=req.file.mimetype;
-        newItem.img.data=fs.readFileSync(req.file.path);
-        newItem.addTimeStamp=new Date().toLocaleString();
-        newItem.seller=req.user.username;
-        newItem.status='open';
-        newItem.isDeleted='false';
-        newItem.save();
-        res.end("success");
-    }
-);
+   if(req.user){
+     var newItem = new itemModel();
+     var bidenddate = new Date(new Date(req.body.endBidTime).getTime()+60*60*24*1000-1000);
+     newItem.name = req.body.name;
+     newItem.description = req.body.description;
+     newItem.category=req.body.category;
+     newItem.startPrice=req.body.startPrice;
+     newItem.endBidTime=bidenddate.toLocaleString("en-US");
+     newItem.img.contentType=req.file.mimetype;
+     newItem.img.data=fs.readFileSync(req.file.path);
+     newItem.addTimeStamp=new Date().toLocaleString();
+     newItem.seller=req.user.username;
+     newItem.status='open';
+     newItem.isDeleted='false';
+     newItem.save();
+     res.end("success");
+   }
+   else{
+     res.status(404).end("noSession");
+   }
+
+});
 
 
 
@@ -96,25 +101,31 @@ router.put('/:id', function(req, res){
 router.post('/:id',upload.single('image'),function(req, res){
   itemModel.findById(req.params.id, function (err, item) {
     if (err) return handleError(err);
-       var bidenddate = new Date(req.body.endBidTime);
-       //console.log(req.params.id);
-       item.name = req.body.name;
-       item.description = req.body.description;
-       item.category=req.body.category;
-       item.startPrice=req.body.startPrice;
-       item.endBidTime=bidenddate.toLocaleString();
-       item.img.contentType=req.file.mimetype;
-       item.img.data=fs.readFileSync(req.file.path);
-       item.addTimeStamp=new Date().toLocaleString();
-       item.seller=req.user.username;
-       item.status='open';
-       item.isDeleted='false';
-       item.save(function (err, updatedItem) {
-        if (err) return handleError(err);
-        res.send(updatedItem);
-        });
-      });
-   });
+    if(req.user){
+      var bidenddate = new Date(req.body.endBidTime);
+      //console.log(req.params.id);
+      item.name = req.body.name;
+      item.description = req.body.description;
+      item.category=req.body.category;
+      item.startPrice=req.body.startPrice;
+      item.endBidTime=bidenddate.toLocaleString();
+      item.img.contentType=req.file.mimetype;
+      item.img.data=fs.readFileSync(req.file.path);
+      item.addTimeStamp=new Date().toLocaleString();
+      item.seller=req.user.username;
+      item.status='open';
+      item.isDeleted='false';
+      item.save(function (err, updatedItem) {
+       if (err) return handleError(err);
+       res.send(updatedItem);
+       });
+    }
+    else{
+      res.status(404).end("noSession");
+    }
+
+  });
+});
 
 
 

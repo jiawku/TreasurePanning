@@ -73,14 +73,17 @@ router.get('/item/:id', function(req, res) {
 });
 
 router.get('/user/', function(req, res) {
-  var collection = db.get('bids');
-  collection.find({
-    bider: req.user.username,
-    "isDeleted": "false"
-  }, function(err, bids) {
-    if (err) throw err;
-    res.json(bids);
-  });
+  if(req.user){
+    var collection = db.get('bids');
+    collection.find({bider: req.user.username,"isDeleted":"false"}, function(err, bids){
+        if (err) throw err;
+        res.json(bids);
+    });
+  }
+  else{
+    res.status(404).end("noSession");
+  }
+
 });
 
 router.post('/', function(req, res) {

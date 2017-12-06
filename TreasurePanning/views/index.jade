@@ -9,32 +9,38 @@ block content
   ul.navigation-bar
     li
       a(href="/#/") Home
-    li.dropdown
-      a.dropbtn(href="") Product
-      div.dropdown-content
-        a(href="/#/add-item") Add Product
-        a(href="/#/") View Product
-    li
-      .dropdown
-        a.dropbtn(href="") Bids
+    if (user)
+      li.dropdown
+        a.dropbtn(href="") Item
         div.dropdown-content
-          a(href="./public/partials/view-bids.html") View Bids
+          a(href="/#/add-item") Add Item
+    if (user)
+      li
+        .dropdown
+          a.dropbtn(href="") History
+          div.dropdown-content
+            a(href="/#/buyingHistory") Buy History
+            a(href="/#/sellingHistory") Sell History
     if (!user)
       li(style="float:right;")
         a(href="/#/login") Sign In
     if (user)
       li(style="float:right;")
         a(href="/logout") Logout
-      li
-        a(href="/#/wishlist") Wishlist
-      li
-        a(href="/#/buyingHistory") Buy History
-      li
-        a(href="/#/sellingHistory") Sell History
+    if (user)
+      if (!user.isAdmin)
+        li
+          a(href="/#/wishlist") Wishlist
+    if (user)
+      if (user.isAdmin)
+        li
+          a(href="/#/contact-msg") View Messages
     li
       a(href="/#/about-us") About Us
-    li
-      a(href="/#/contact-us") Contact Us
+    if (user)
+      if (!user.isAdmin)
+        li
+          a(href="/#/contact-us") Contact Us
   .main-content.container-fluid
     div(ng-view)
   .footer.row-fluid

@@ -22,38 +22,39 @@ router.post('/:id', function(req, res) {
       });
     });
   }
+  else{
+    res.status(404).end("noSession");
+  }
 
 });
 
 
-router.get('/', function(req, res) {
-  var wishlists = db.get('wishlists');
-  var collection = db.get('items');
-  wishlists.find({
-    item_user: req.user.username
-  }, function(err, items) {
+router.get('/',function(req,res){
+  if(req.user){
+    var wishlists = db.get('wishlists');
+    var collection = db.get('items');
+    wishlists.find({ item_user: req.user.username},function(err, items){
     if (err) throw err;
-    var itemIDs = items.map(a => a.itemID);
-    if (itemIDs.length > 0) {
-      collection.find({
-        _id: {
-          $in: itemIDs
-        },
-        isDeleted: 'false',
-        status: 'open'
-      }, function(err, wishItem) {
-        if (err) throw err;
-        if (wishItem.length == 0) {
-          res.status(404).end("empty wishlist");
-        } else {
-          res.json(wishItem);
-        }
+    var itemIDs=items.map(a=>a.itemID);
+    if(itemIDs.length>0){
+        collection.find({ _id:{$in : itemIDs },isDeleted:'false',status:'open'},function(err, wishItem){
+          if (err) throw err;
+          if (wishItem.length==0){
+            res.status(404).end("empty wishlist");
+          }
+          else{
+            res.json(wishItem);
+          }
 
-      });
-    } else {
-      res.status(404).end("empty wishlist");
-    }
-  });
+        });
+      }else{
+        res.status(404).end("empty wishlist");
+      }
+    });
+  }
+  else{
+  res.status(404).end("noSession");
+  }
 });
 
 
@@ -71,18 +72,24 @@ router.get('/:id', function(req, res) {
       if (err) throw err;
       res.json(myItem);
     });
-  });
+  }
+  else{
+    res.status(404).end("noSession");
+  }
 });
 
-router.delete('/:id', function(req, res) {
-  var collection = db.get('wishlists');
-  collection.remove({
-    itemID: new ObjectId(req.params.id),
-    item_user: req.user.username
-  }, function(err, data) {
-    if (err) throw err;
-    res.json(data);
-  });
+router.delete('/:id', function(req, res){
+  if(req.user){
+    var collection = db.get('wishlists');
+    collection.remove({itemID : new ObjectId(req.params.id),item_user: req.user.username}, function(err, data){
+        if (err) throw err;
+        res.json(data);
+    });
+  }
+  else{
+  res.status(404).end("noSession");
+  }
+
 });
 
 module.exports = router;
