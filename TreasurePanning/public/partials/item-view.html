@@ -27,9 +27,17 @@
         <label>Bid End Time: </label>
         {{item.endBidTime}}
     </div>
+    <div class="form-group" ng-show="isAdmin">
+      <label>isDeleted </label>
+        {{item.isDeleted}}
+    </div>
+    <div class="form-group" ng-show="isAdmin">
+      <label>Status </label>
+        {{item.status}}
+    </div>
     <div ng-show="isAdmin">
         <a href='/#/item/delete/{{item._id}}'>
-          <input type="button" name="btndelete" class="btn btn-danger" value="Delete Item"></input>
+          <input type="button" name="btndelete" class="btn btn-danger" ng-hide="item.isDeleted" value="Delete Item"></input>
         </a>
         <a href="/#/item/edit/{{item._id}}">
           <input type="button" name="btnedit" class="btn btn-primary" value="Edit Item">

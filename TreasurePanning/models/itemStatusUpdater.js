@@ -10,12 +10,9 @@ var router = express.Router();
 
 exports.update =function (){
 
-
-      itemModel.find({}).stream()
+      itemModel.find({status:"open"}).stream()
        .on('data', function(item){
            if (new Date(item.endBidTime)< new Date()){
-             console.log(item._id);
-             console.log(item.status);
              item.set('status','closed');
              item.save(function(err){});
              console.log(item.status);
