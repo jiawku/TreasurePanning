@@ -1,5 +1,5 @@
-app.controller('AddItemCtrl', ['$timeout','$scope','multipartForm','$location',
-  function($timeout,$scope,multipartForm,$location){
+app.controller('AddItemCtrl', ['$window','$timeout','$scope','multipartForm','$location',
+  function($window,$timeout,$scope,multipartForm,$location){
     $scope.item={};
     $scope.showForm="True";
     $scope.date=new Date();
@@ -20,9 +20,13 @@ app.controller('AddItemCtrl', ['$timeout','$scope','multipartForm','$location',
   app.controller('ListItemCtrl', ['$scope', '$resource', '$routeParams','$route',
       function($scope, $resource, $routeParams,$route){
           var items = $resource('/api/items/:id');
+          var currentPrice = $resource('/api/bids/itemCurrentBid/:id');
           $scope.bids={};
           items.get({ id: $routeParams.id }, function(item){
               $scope.item = item;
+              currentPrice.get({ id: $routeParams.id }, function(currentBid){
+                $scope.item.currentBid=currentBid.bidPrice;
+              });
               $scope.endTime=new Date(item.endBidTime);
               if(new Date(item.endBidTime) > new Date()){
                 $scope.dateValidity=true;
@@ -54,7 +58,14 @@ app.controller('AddItemCtrl', ['$timeout','$scope','multipartForm','$location',
                   $scope.bidForm.$setUntouched();
                   $route.reload();
               },function(err){
-                  $scope.bidMessage="Biding error.Please login before biding.";
+                  if(err.data=="noSession"){
+                    $scope.bidMessage="Biding error.Please login before biding.";
+                  }else if(err.data=="SellerBid"){
+                    $scope.bidMessage="Biding error.You are the seller of this item";
+                  }else{
+                    $scope.bidMessage="Biding Server Error";
+                  }
+
                   $scope.bidStatus="alert-danger";
                   $scope.newBid={};
                   $scope.bidForm.$setPristine();

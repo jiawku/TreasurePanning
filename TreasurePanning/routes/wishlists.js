@@ -6,19 +6,21 @@ var db = monk('root:root@ds243085.mlab.com:43085/treasurepanning');
 var ObjectId = require('mongodb').ObjectID;
 
 router.post('/:id',function(req,res){
+  if(req.user){
+    var collection = db.get('items');
+    var wishlists = db.get('wishlists');
+    collection.findOne({ _id: req.params.id},function(err, item){
+        if (err) throw err;
+        wishlists.insert({
+            itemID:item._id,
+            item_user:req.user.username
+        }, function(err, wishlistItem){
+            if (err) throw err;
+            res.json(wishlistItem);
+        });
+    });
+  }
 
-  var collection = db.get('items');
-  var wishlists = db.get('wishlists');
-  collection.findOne({ _id: req.params.id},function(err, item){
-      if (err) throw err;
-      wishlists.insert({
-          itemID:item._id,
-          item_user:req.user.username
-      }, function(err, wishlistItem){
-          if (err) throw err;
-          res.json(wishlistItem);
-      });
-  });
 });
 
 

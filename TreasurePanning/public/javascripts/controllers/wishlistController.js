@@ -1,8 +1,12 @@
 app.controller('AddWishlistCtrl', ['$scope', '$resource', '$routeParams','$location','$timeout',
     function($scope, $resource, $routeParams,$location,$timeout){
         var items = $resource('/api/items/:id');
+        var currentPrice = $resource('/api/bids/itemCurrentBid/:id');
         items.get({ id: $routeParams.id }, function(item){
-            $scope.item = item;
+              $scope.item = item;
+              currentPrice.get({ id: $routeParams.id }, function(currentBid){
+                $scope.item.currentBid=currentBid.bidPrice;
+              });
         });
         $scope.save = function(){
            var WishItems = $resource('/api/wishlists/:id',{id:$routeParams.id});
@@ -17,8 +21,12 @@ app.controller('AddWishlistCtrl', ['$scope', '$resource', '$routeParams','$locat
 app.controller('WishlistCtrl', ['$scope', '$resource', '$routeParams','$location','$timeout',
     function($scope, $resource, $routeParams,$location,$timeout){
       var items = $resource('/api/items/:id');
+      var currentPrice = $resource('/api/bids/itemCurrentBid/:id');
       items.get({ id: $routeParams.id }, function(item){
-            $scope.item = item;
+        $scope.item = item;
+        currentPrice.get({ id: $routeParams.id }, function(currentBid){
+          $scope.item.currentBid=currentBid.bidPrice;
+        });
       });
       $scope.save = function(){
         var WishItems = $resource('/api/wishlists/:id',{id:$routeParams.id});
@@ -49,7 +57,12 @@ app.controller('WishlistCtrl', ['$scope', '$resource', '$routeParams','$location
             function($scope, $resource,$location, $routeParams){
                 $scope.showWishForm="True";
                 var Wishlistitems = $resource('/api/wishlists',{get:{method:'get',isArray:true}});
+                var currentPrice = $resource('/api/bids/itemCurrentBid/:id');
                 Wishlistitems.query(function(wishlistitems){
+                  angular.forEach(wishlistitems,function(item){;
+                    currentPrice.get({ id: item._id}, function(currentBid){
+                      item.currentBid=currentBid.bidPrice;
+                    })});
                   $scope.wishlistitems = wishlistitems;
                   },function(){
                     $scope.successMessgae="Wishlist is Empty.";
@@ -61,8 +74,12 @@ app.controller('WishlistCtrl', ['$scope', '$resource', '$routeParams','$location
       app.controller('DeleteWishlistCtrl', ['$scope', '$resource', '$location', '$routeParams','$timeout',
             function($scope, $resource, $location, $routeParams,$timeout){
               var wishItem= $resource('/api/wishlists/:id');
+              var currentPrice = $resource('/api/bids/itemCurrentBid/:id');
               wishItem.get({id:$routeParams.id},function(data){
-              $scope.mywishitem=data;
+                  $scope.mywishitem=data;
+                  currentPrice.get({ id: $routeParams.id }, function(currentBid){
+                    $scope.mywishitem.currentBid=currentBid.bidPrice;
+                  });
 
                 $scope.delete = function(){
                 $scope.successMessgae="Item is removed successfully from your wishlist.";

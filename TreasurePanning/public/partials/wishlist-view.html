@@ -8,6 +8,7 @@
           <th scope="col">Category</th>
           <th scope="col">Description</th>
           <th scope="col">Minimum Bid Amount</th>
+          <th scope="col">Current Bid Amount</th>
           <th scope="col">Bid End Time</th>
           <th scope="col">Action</th>
         </tr>
@@ -21,6 +22,7 @@
           <td>{{wishItem.category}}</td>
           <td>{{wishItem.description}}</td>
           <td>{{wishItem.startPrice}}</td>
+          <td>{{wishItem.currentBid}}</td>
           <td>{{wishItem.endBidTime}}</td>
           <td>
             <a href="/#/wishlist/delete/{{wishItem._id}}">

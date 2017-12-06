@@ -1,17 +1,28 @@
 <div class="alert alert-info" role="alert" ng-if="successMessgae"><p style="font-size:200%; text-align:center;">{{successMessgae}}</p></div>
 <div class="viewitemform">
-<ul>
-  <li ng-repeat="item in history">
-    <div class="gallery">
-      <a href="/#/item/{{item._id}}">
-      <img ng-src="/api/items/image/{{item._id}}" alt="Photo of {{item.name}}">
-     </a>
-      <div class="desc">
-        <h5>{{item.name}}</h5>
-        <hr>
-        <p>Minimum Bid: {{item.startPrice}}</p>
-      </div>
-    </div>
-  </li>
-</ul>
+  <table class="table table-hover table-dark">
+        <tr>
+          <th scope="col">Image</th>
+          <th scope="col">Name</th>
+          <th scope="col">Category</th>
+          <th scope="col">Description</th>
+          <th scope="col">Minimum Bid Amount</th>
+          <th scope="col">Current Bid Amount</th>
+          <th scope="col">Bid End Time</th>
+        </tr>
+        <tr ng-repeat="item in history">
+
+          <td>
+            <a href="/#/item/{{item._id}}">
+             <img ng-src="/api/items/image/{{item._id}}" alt="Photo of {{item.name}}" width="180px" height="180px">
+           </a>
+          </td>
+          <td>{{item.name}}</td>
+          <td>{{item.category}}</td>
+          <td>{{item.description}}</td>
+          <td>{{item.startPrice}}</td>
+          <td>{{item.currentBid}}</td>
+          <td>{{item.endBidTime}}</td>
+        </tr>
+    </table>
 </div>
