@@ -40,7 +40,11 @@ router.get('/selling/', function(req, res) {
     var collection = db.get('items');
     collection.find({seller: req.user.username,"isDeleted":"false"}, function(err, items){
         if (err) throw err;
-        res.json(items);
+        if(items.length>0){
+          res.json(items);
+        }else{
+          res.status(404).end("empty sellingHistory");
+        }
     });
   }
   else{
