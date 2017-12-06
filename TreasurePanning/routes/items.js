@@ -38,7 +38,7 @@ var db = monk('root:root@ds243085.mlab.com:43085/treasurepanning');
 
 router.get('/', function(req, res) {
     var collection = db.get('items');
-    if(req.user.isAdmin){
+    if(req.user && req.user.isAdmin){
       collection.find({}, function(err, items){
           if (err) throw err;
         	res.json(items);
