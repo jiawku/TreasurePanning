@@ -46,6 +46,7 @@ app.use('/api/bids', bids);
 app.use('/api/queries', queries);
 app.use('/api/wishlists',wishlists);
 app.use('/api/history',history);
+
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   var err = new Error('Not Found');
@@ -74,5 +75,8 @@ passport.deserializeUser(Account.deserializeUser());
 
 // mongoose
 mongoose.connect('root:root@ds243085.mlab.com:43085/treasurepanning');
+
+var itemStatusUpdater=require('./models/itemStatusUpdater');
+itemStatusUpdater.update();
 
 module.exports = app;

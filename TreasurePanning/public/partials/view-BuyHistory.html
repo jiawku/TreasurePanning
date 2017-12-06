@@ -9,8 +9,13 @@
           <th scope="col">Minimum Bid Amount</th>
           <th scope="col">Current Bid Amount</th>
           <th scope="col">Bid End Time</th>
+          <th scope="col">Status</th>
         </tr>
-        <tr ng-repeat="item in history">
+        <tr ng-repeat="item in history"
+        ng-class='{"bg-info": (item.status=="open" && item.currentBid.bider==user.username),
+        "bg-warning": (item.status=="open" && item.currentBid.bider!=user.username),
+        "bg-success": (item.status=="closed" && item.currentBid.bider==user.username),"
+        bg-danger": (item.status=="closed" && item.currentBid.bider!=user.username) }'>
 
           <td>
             <a href="/#/item/{{item._id}}">
@@ -21,8 +26,14 @@
           <td>{{item.category}}</td>
           <td>{{item.description}}</td>
           <td>{{item.startPrice}}</td>
-          <td>{{item.currentBid}}</td>
+          <td>{{item.currentBid.bidPrice}}</td>
           <td>{{item.endBidTime}}</td>
+          <td>
+            <p ng-if='(item.status=="open" && item.currentBid.bider==user.username)'>You are wining the bidding.</p>
+            <p ng-if='(item.status=="closed" && item.currentBid.bider==user.username)'>You have won the bidding.</p>
+            <p ng-if='(item.status=="open" && item.currentBid.bider!=user.username)'>You are losing the bidding.</p>
+            <p ng-if='(item.status=="closed" && item.currentBid.bider!=user.username)'>You lost the bidding.</p>
+          </td>
         </tr>
     </table>
 </div>

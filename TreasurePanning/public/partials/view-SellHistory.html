@@ -1,0 +1,37 @@
+<div class="alert alert-info" role="alert" ng-if="successMessgae"><p style="font-size:200%; text-align:center;">{{successMessgae}}</p></div>
+<div class="viewitemform" ng-hide="successMessgae">
+  <table class="table table-hover table-dark">
+        <tr>
+          <th scope="col">Image</th>
+          <th scope="col">Name</th>
+          <th scope="col">Category</th>
+          <th scope="col">Description</th>
+          <th scope="col">Minimum Bid Amount</th>
+          <th scope="col">Current Bid Amount</th>
+          <th scope="col">Bid End Time</th>
+          <th scope="col">Status</th>
+        </tr>
+        <tr ng-repeat="item in history"
+        ng-class='{"bg-info": (item.status=="open" ),
+        "bg-success": (item.status=="closed" && item.currentBid.username!="NoBidder"),
+        "bg-danger": (item.status=="closed" && item.currentBid.username=="NoBidder") }'>
+
+          <td>
+            <a href="/#/item/{{item._id}}">
+             <img ng-src="/api/items/image/{{item._id}}" alt="Photo of {{item.name}}" width="180px" height="180px">
+           </a>
+          </td>
+          <td>{{item.name}}</td>
+          <td>{{item.category}}</td>
+          <td>{{item.description}}</td>
+          <td>{{item.startPrice}}</td>
+          <td>{{item.currentBid.bidPrice}}</td>
+          <td>{{item.endBidTime}}</td>
+          <td>
+            <p ng-if='(item.status=="open" )'>Your item are under bidding.</p>
+            <p ng-if='(item.status=="closed" && item.currentBid.username=="NoBidder")'>Sorry, your item has not been sold.</p>
+            <p ng-if='(item.status=="closed" && item.currentBid.username!="NoBidder")'>Congratulations! {{item.currentBid.username}} won your item.</p>
+          </td>
+        </tr>
+    </table>
+</div>

@@ -67,12 +67,12 @@ app.config(['$routeProvider', function($routeProvider){
           access: {restricted: true}
         })
         .when('/buyingHistory',{
-          templateUrl: 'partials/view-History.html',
+          templateUrl: 'partials/view-BuyHistory.html',
           controller: 'ViewBuyingHistoryCtrl',
           access: {restricted: true}
         })
         .when('/sellingHistory',{
-          templateUrl: 'partials/view-History.html',
+          templateUrl: 'partials/view-SellHistory.html',
           controller: 'ViewSellingHistoryCtrl',
           access: {restricted: true}
         })

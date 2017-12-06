@@ -43,12 +43,11 @@ router.get('/itemCurrentBid/:id', function(req, res) {
       itemCollecion.findOne({
         _id: req.params.id
       }, function(err, item) {
-        console.log(item);
         if (err || item == null) {
           res.status(404).json("item not found");
         } else {
           res.json({
-            "username": "No Bidder yet",
+            "username": "NoBidder",
             "bidPrice": item.startPrice
           });
         }
@@ -92,7 +91,6 @@ router.post('/', function(req, res) {
   itemCollecion.findOne({
     _id: req.body.itemID
   }, function(err, item) {
-    console.log(item);
     if (err) {
       res.status(404).json("item not found");
     } else {

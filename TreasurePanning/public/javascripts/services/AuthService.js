@@ -16,7 +16,11 @@ angular.module('TreasurePanning').factory('AuthService', ['$q', '$timeout', '$ht
     });
 
     function isAdmin() {
+      if(isLoggedIn()){
         return user.isAdmin;
+      }else{
+        return false;
+      }
     }
 
     function isLoggedIn() {
@@ -56,7 +60,7 @@ angular.module('TreasurePanning').factory('AuthService', ['$q', '$timeout', '$ht
         // handle success
         .success(function(data, status) {
           if (status === 200 && data.status) {
-            user = true;
+            user = data;
             deferred.resolve();
           } else {
             user = false;

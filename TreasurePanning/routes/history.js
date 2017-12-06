@@ -13,12 +13,10 @@ router.get('/buying/', function(req, res) {
     var collection = db.get('bids');
     collection.find({bider: req.user.username,"isDeleted":"false"}, function(err, bids){
         if (err) throw err;
-        console.log(bids);
         var itemIDs=bids.map(a=>a.itemID)
         itemIDs=itemIDs.filter(function(elem, pos) {
             return itemIDs.indexOf(elem) == pos;
         });
-        console.log(itemIDs);
         if(itemIDs.length>0){
           var itemsCollection = db.get('items');
             itemsCollection.find({ _id:{$in : itemIDs }},function(err, buyingItem){

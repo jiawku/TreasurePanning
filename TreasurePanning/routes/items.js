@@ -16,21 +16,7 @@ var upload = multer({ storage: storage });
 
 mongoose.connect('root:root@ds243085.mlab.com:43085/treasurepanning');
 
-var itemSchema = new Schema({
-  name: String,
-  description : String,
-  category : String,
-  startPrice: Number,
-  endBidTime: String,
-  img:{contentType:String,
-    data:Buffer},
-  addTimeStamp: String,
-  seller: String,
-  status: String,
-  isDeleted: String
-});
-
-var itemModel = mongoose.model('Item',itemSchema);
+var itemModel = require('../models/item.js');
 
 var monk = require('monk');
 var db = monk('root:root@ds243085.mlab.com:43085/treasurepanning');
@@ -109,7 +95,6 @@ router.post('/:id',upload.single('image'),function(req, res){
     if (err) return handleError(err);
     if(req.user){
       var bidenddate = new Date(req.body.endBidTime);
-      //console.log(req.params.id);
       item.name = req.body.name;
       item.description = req.body.description;
       item.category=req.body.category;
