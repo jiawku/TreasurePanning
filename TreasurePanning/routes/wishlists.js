@@ -82,7 +82,7 @@ router.delete('/:id', function(req, res){
     });
   }
   else{
-  res.status(404).end("noSession");  
+  res.status(404).end("noSession");
   }
 
 });

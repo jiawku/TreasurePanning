@@ -70,8 +70,14 @@ app.config(['$routeProvider', function($routeProvider){
 app.controller('HomeCtrl', ['$scope', '$resource',
     function($scope, $resource){
       var items = $resource('/api/items');
+      var currentPrice = $resource('/api/bids/itemCurrentBid/:id');
       items.query(function(items){
-          $scope.items = items;
+
+          angular.forEach(items,function(item){;
+            currentPrice.get({ id: item._id}, function(currentBid){
+              item.currentBid=currentBid.bidPrice;
+            })});
+            $scope.items = items;
           $scope.itemOrders = 'name';
       });
     }]);
