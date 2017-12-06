@@ -39,19 +39,7 @@ app.controller('WishlistCtrl', ['$scope', '$resource', '$routeParams','$location
      };
   }]);
 
-    //
-    // app.controller('ViewWishlistCtrl', ['$scope', '$resource',
-    //     function($scope, $resource){
-    //         var Wishlistitems = $resource('/api/wishlists');
-    //         Wishlistitems.query(function(wishlistitems){
-    //           $scope.wishlistitems = wishlistitems;
-    //
-    //           },function(){
-    //             $scope.successMessgae="Wishlist is Empty.";
-    //           }
-    //
-    //         );
-    //     }]);
+  
 
         app.controller('ViewWishlistCtrl', ['$scope', '$resource','$location', '$routeParams',
             function($scope, $resource,$location, $routeParams){
