@@ -27,7 +27,7 @@
         <label>Bid End Time: </label>
         {{item.endBidTime}}
     </div>
-    <div>
+    <div ng-show="isAdmin">
         <a href='/#/item/delete/{{item._id}}'>
           <input type="button" name="btndelete" class="btn btn-danger" value="Delete Item"></input>
         </a>

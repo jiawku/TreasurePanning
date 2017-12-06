@@ -1,11 +1,11 @@
 var mongoose = require('mongoose'),
-    Schema = mongoose.Schema,
+  Schema = mongoose.Schema,
 
-var itemImage = new Schema({
+  var itemImage = new Schema({
     productID: String,
     data: Buffer,
     contentType: String
-});
+  });
 
 
 var express = require('express');

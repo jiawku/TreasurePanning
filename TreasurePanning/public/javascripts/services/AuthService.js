@@ -1,21 +1,6 @@
-// app.service('auth',['$http',function($http){
-//   this.login=function(username,password){
-//       return $http({
-//          method: 'POST',
-//          url: '/login',
-//          data: {username:username, password:password}
-//       }).then(function(response){
-//         if(response.status==401){console.log("get 401")};
-//   			return response.data;
-//   		});
-//     }
-// }])
 
-
-
-angular.module('TreasurePanning').factory('AuthService',
-  ['$q', '$timeout', '$http',
-  function ($q, $timeout, $http) {
+angular.module('TreasurePanning').factory('AuthService', ['$q', '$timeout', '$http',
+  function($q, $timeout, $http) {
 
     // create user variable
     var user = null;
@@ -23,14 +8,19 @@ angular.module('TreasurePanning').factory('AuthService',
     // return available functions for use in the controllers
     return ({
       isLoggedIn: isLoggedIn,
+      isAdmin:isAdmin,
       getUserStatus: getUserStatus,
       login: login,
       logout: logout,
       register: register
     });
 
+    function isAdmin() {
+        return user.isAdmin;
+    }
+
     function isLoggedIn() {
-      if(user) {
+      if (user) {
         return true;
       } else {
         return false;
@@ -39,18 +29,18 @@ angular.module('TreasurePanning').factory('AuthService',
 
     function getUserStatus() {
       return $http.get('/status')
-      // handle success
-      .success(function (data) {
-        if(data.username){
-          user = data;
-        } else {
+        // handle success
+        .success(function(data) {
+          if (data.username) {
+            user = data;
+          } else {
+            user = false;
+          }
+        })
+        // handle error
+        .error(function(data) {
           user = false;
-        }
-      })
-      // handle error
-      .error(function (data) {
-        user = false;
-      });
+        });
     }
 
     function login(username, password) {
@@ -59,11 +49,13 @@ angular.module('TreasurePanning').factory('AuthService',
       var deferred = $q.defer();
 
       // send a post request to the server
-      $http.post('/login',
-        {username: username, password: password})
+      $http.post('/login', {
+          username: username,
+          password: password
+        })
         // handle success
-        .success(function (data, status) {
-          if(status === 200 && data.status){
+        .success(function(data, status) {
+          if (status === 200 && data.status) {
             user = true;
             deferred.resolve();
           } else {
@@ -72,7 +64,7 @@ angular.module('TreasurePanning').factory('AuthService',
           }
         })
         // handle error
-        .error(function (data) {
+        .error(function(data) {
           user = false;
           deferred.reject();
         });
@@ -90,12 +82,12 @@ angular.module('TreasurePanning').factory('AuthService',
       // send a get request to the server
       $http.get('/logout')
         // handle success
-        .success(function (data) {
+        .success(function(data) {
           user = false;
           deferred.resolve();
         })
         // handle error
-        .error(function (data) {
+        .error(function(data) {
           user = false;
           deferred.reject();
         });
@@ -105,31 +97,31 @@ angular.module('TreasurePanning').factory('AuthService',
 
     }
 
-    function register(username, password,firstname,lastname,phone,address,email) {
+    function register(username, password, firstname, lastname, phone, address, email) {
 
       // create a new instance of deferred
       var deferred = $q.defer();
 
       // send a post request to the server
-      $http.post('/register',
-        {username: username,
-         password: password,
-         firstname: firstname,
-         lastname: lastname,
-         phone: phone,
-         address: address,
-         email: email
+      $http.post('/register', {
+          username: username,
+          password: password,
+          firstname: firstname,
+          lastname: lastname,
+          phone: phone,
+          address: address,
+          email: email
         })
         // handle success
-        .success(function (data, status) {
-          if(status === 200 && data.status){
+        .success(function(data, status) {
+          if (status === 200 && data.status) {
             deferred.resolve();
           } else {
             deferred.reject();
           }
         })
         // handle error
-        .error(function (data) {
+        .error(function(data) {
           deferred.reject();
         });
 
@@ -138,4 +130,5 @@ angular.module('TreasurePanning').factory('AuthService',
 
     }
 
-}]);
+  }
+]);
